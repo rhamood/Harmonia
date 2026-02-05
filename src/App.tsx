@@ -1,16 +1,22 @@
 import './App.css'
 import icon from './assets/images/siteIcon.png'
-function App() {
+import {useState} from 'react';
+import ProfilePage from './ProfilePage';
+import DiscographyPage from './Discography';
 
+function App() {
+  const [page, setPage] = useState("home");
 
   return (
     <>
       <div className='bg-[#D496BB] min-h-full'>
         <nav className='w-full bg-white p-4 flex justify-start space-x-4 text-[#D496BB]'> 
           <a href=""> Home </a>
-          <a href=""> Discography </a>
-          <a href=""> Profile </a>
+          <a href="#" onClick={() => setPage("discographyPage")}> Discography </a>
+          <a href="#" onClick={() => setPage("profilePage")}>Profile</a>
         </nav>
+        {page === "discographyPage" && <DiscographyPage />}
+        {page === "profilePage" && <ProfilePage />}
         <div className='px-32'>
           <h1 className='text-8xl font-bold text-center mt-8 text-white'> Harmonia </h1>
           <div className='w-full flex items-center justify-center mt-12'>
