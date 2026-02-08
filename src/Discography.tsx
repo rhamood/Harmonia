@@ -3,8 +3,10 @@ function DiscographyPage() {
     <div className='bg-[#D496BB] min-h-screen'>
       <h1 className='text-6xl font-bold text-center mt-8 text-white'> DISCOGRAPHY PAGE</h1>
       <p className='text-desc font-bold text-center mt-8 text-white'> Find Your Next Fave at the Disco </p>
-      <button className='text-add font-bold mt-8 text-white border border-white bg-[#EFBFE9] block mx-auto'> + Add Album </button>
+      <button className='text-add font-bold mt-8 text-white border border-white bg-[#EFBFE9] block mx-auto'> ⌕ Search for Album </button>
       <div className='px-32'>
+      
+      <p className='text-desc font-bold text-white'> Suggested for You </p>
       
 {/* The first row of suggested albums */}
       <div className='w-full space-x-8 flex items-center justify-center mt-12 pb-12'>
