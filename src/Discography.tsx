@@ -19,6 +19,7 @@ function DiscographyPage() {
              <br></br>
              <h3 className='font-bold text-1xl'> Artist Name </h3>
              <h3 className='font-bold text-1xl'> Album Rating </h3>
+             {/* Here are some possible rating symbols we can maybe use -------------> ✮✰💿🪩✧✨⋆✴︎˚｡⋆📀🎧𓇼♫  */}
              <button className='text-add font-bold mt-4 text-white border border-white bg-[#EFBFE9] block mx-auto'> + Add Album </button>
             </div>
 
