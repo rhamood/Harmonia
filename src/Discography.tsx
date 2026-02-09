@@ -12,20 +12,19 @@ function DiscographyPage() {
       <div className='w-full space-x-8 flex items-center justify-center mt-12 pb-12'>
              
              {/* Album 1 */}
-             <div className='w-1/5 h-120 bg-white flex justify-center flex flex-col items-center'>
-             <div className='w-4/5 h-1/2 bg-black flex justify-center'> </div>
+             <div className='w-1/5 bg-white flex justify-center flex flex-col items-center p-4'>
+             <div className='w-4/5 aspect-square bg-black flex justify-center'> </div>
              <br></br>
              <h3 className='font-bold text-2xl'> Album Name </h3>
              <br></br>
              <h3 className='font-bold text-1xl'> Artist Name </h3>
              <h3 className='font-bold text-1xl'> Album Rating </h3>
-             {/* Here are some possible rating symbols we can maybe use -------------> ✮✰💿🪩✧✨⋆✴︎˚｡⋆📀🎧𓇼♫  */}
              <button className='text-add font-bold mt-4 text-white border border-white bg-[#EFBFE9] block mx-auto'> + Add Album </button>
             </div>
 
             {/* Album 2 */}
-             <div className='w-1/5 h-120 bg-white flex justify-center flex flex-col items-center'>
-             <div className='w-4/5 h-1/2 bg-black flex justify-center'> </div>
+             <div className='w-1/5 bg-white flex justify-center flex flex-col items-center p-4'>
+             <div className='w-4/5 aspect-square bg-black flex justify-center'> </div>
              <br></br>
              <h3 className='font-bold text-2xl'> Album Name </h3>
              <br></br>
@@ -35,8 +34,8 @@ function DiscographyPage() {
             </div>
 
             {/* Album 3 */}
-             <div className='w-1/5 h-120 bg-white flex justify-center flex flex-col items-center'>
-             <div className='w-4/5 h-1/2 bg-black flex justify-center'> </div>
+             <div className='w-1/5 bg-white flex justify-center flex flex-col items-center p-4'>
+             <div className='w-4/5 aspect-square bg-black flex justify-center'> </div>
              <br></br>
              <h3 className='font-bold text-2xl'> Album Name </h3>
              <br></br>
@@ -46,8 +45,8 @@ function DiscographyPage() {
             </div>
 
             {/* Album 4 */}
-             <div className='w-1/5 h-120 bg-white flex justify-center flex flex-col items-center'>
-             <div className='w-4/5 h-1/2 bg-black flex justify-center'> </div>
+             <div className='w-1/5 bg-white flex justify-center flex flex-col items-center p-4'>
+             <div className='w-4/5 aspect-square bg-black flex justify-center'> </div>
              <br></br>
              <h3 className='font-bold text-2xl'> Album Name </h3>
              <br></br>
@@ -57,8 +56,8 @@ function DiscographyPage() {
             </div>
 
             {/* Album 5 */}
-             <div className='w-1/5 h-120 bg-white flex justify-center flex flex-col items-center'>
-             <div className='w-4/5 h-1/2 bg-black flex justify-center'> </div>
+             <div className='w-1/5 bg-white flex justify-center flex flex-col items-center p-4'>
+             <div className='w-4/5 aspect-square bg-black flex justify-center'> </div>
              <br></br>
              <h3 className='font-bold text-2xl'> Album Name </h3>
              <br></br>
@@ -72,8 +71,8 @@ function DiscographyPage() {
         <div className='w-full space-x-8 flex items-center justify-center mt-12 pb-12'>
              
              {/* Album 1 */}
-             <div className='w-1/5 h-120 bg-white flex justify-center flex flex-col items-center'>
-             <div className='w-4/5 h-1/2 bg-black flex justify-center'> </div>
+             <div className='w-1/5 bg-white flex justify-center flex flex-col items-center p-4'>
+             <div className='w-4/5 aspect-square bg-black flex justify-center'> </div>
              <br></br>
              <h3 className='font-bold text-2xl'> Album Name </h3>
              <br></br>
@@ -83,8 +82,8 @@ function DiscographyPage() {
             </div>
 
             {/* Album 2 */}
-             <div className='w-1/5 h-120 bg-white flex justify-center flex flex-col items-center'>
-             <div className='w-4/5 h-1/2 bg-black flex justify-center'> </div>
+             <div className='w-1/5 bg-white flex justify-center flex flex-col items-center p-4'>
+             <div className='w-4/5 aspect-square bg-black flex justify-center'> </div>
              <br></br>
              <h3 className='font-bold text-2xl'> Album Name </h3>
              <br></br>
@@ -94,8 +93,8 @@ function DiscographyPage() {
             </div>
 
             {/* Album 3 */}
-             <div className='w-1/5 h-120 bg-white flex justify-center flex flex-col items-center'>
-             <div className='w-4/5 h-1/2 bg-black flex justify-center'> </div>
+             <div className='w-1/5 bg-white flex justify-center flex flex-col items-center p-4'>
+             <div className='w-4/5 aspect-square bg-black flex justify-center'> </div>
              <br></br>
              <h3 className='font-bold text-2xl'> Album Name </h3>
              <br></br>
@@ -105,8 +104,8 @@ function DiscographyPage() {
             </div>
 
             {/* Album 4 */}
-             <div className='w-1/5 h-120 bg-white flex justify-center flex flex-col items-center'>
-             <div className='w-4/5 h-1/2 bg-black flex justify-center'> </div>
+             <div className='w-1/5 bg-white flex justify-center flex flex-col items-center p-4'>
+             <div className='w-4/5 aspect-square bg-black flex justify-center'> </div>
              <br></br>
              <h3 className='font-bold text-2xl'> Album Name </h3>
              <br></br>
@@ -116,8 +115,8 @@ function DiscographyPage() {
             </div>
 
             {/* Album 5 */}
-             <div className='w-1/5 h-120 bg-white flex justify-center flex flex-col items-center'>
-             <div className='w-4/5 h-1/2 bg-black flex justify-center'> </div>
+             <div className='w-1/5 bg-white flex justify-center flex flex-col items-center p-4'>
+             <div className='w-4/5 aspect-square bg-black flex justify-center'> </div>
              <br></br>
              <h3 className='font-bold text-2xl'> Album Name </h3>
              <br></br>
