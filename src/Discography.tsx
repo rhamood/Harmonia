@@ -5,6 +5,7 @@ import NavbarComponent from "./NavbarComponent";
 type Album = {
   albumid: number;
   hasImage: boolean;
+  Image: string;
   album: string;
   artist: string;
 };
@@ -37,7 +38,9 @@ function DiscographyPage() {
           <div className='flex flex-row flex-wrap justify-center gap-4 py-8'>
             {albums.map(album => (
               <div key={album.albumid} className='w-1/5 bg-white flex justify-center flex-col items-center p-4'>
-                <div className='w-4/5 aspect-square bg-black flex justify-center'> </div>
+                <div className='w-4/5 aspect-square bg-black flex justify-center'> 
+                  <img src={album.Image} alt={album.album} className="w-full h-full object-cover" />
+                </div>
                 <br></br>
                 <h3 className='font-bold text-2xl'> {album.album} </h3>
                 <br></br>
