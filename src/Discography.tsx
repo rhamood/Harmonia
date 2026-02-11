@@ -14,16 +14,16 @@ function DiscographyPage() {
   const [albums, setAlbums] = useState<Album[]>([]); // creates empty array for albums
 
   useEffect(() => {
-      const fetchAlbums = async () => {
-        try {
+    const fetchAlbums = async () => {
+      try {
         const res = await fetch("http://localhost:3000/api/albums") // gets the albums from api
         const data = await res.json()
         setAlbums(data)
-        } 
-        catch (err) {
-          console.error(err); // error handling
-        }
-      };
+      }
+      catch (err) {
+        console.error(err); // error handling
+      }
+    };
     fetchAlbums();
   }, []);
 
@@ -31,14 +31,14 @@ function DiscographyPage() {
     <>
       <div className='bg-[#D496BB] min-h-screen'>
         <NavbarComponent />
-        <h1 className='text-6xl font-bold text-center mt-8 text-white'> Discogrpahy</h1>
-        <p className='text-desc font-bold text-center mt-8 text-white'> Find Your Next Fav at the Disco! </p>
+        <h1 className='text-6xl font-bold text-center mt-8 text-white'> Discography</h1>
+        <p className='text-desc font-bold text-center mt-8 text-white'> Find Your Next Fave at the Disco! </p>
 
         <div className='px-32'>
           <div className='flex flex-row flex-wrap justify-center gap-4 py-8'>
             {albums.map(album => (
               <div key={album.albumid} className='w-1/5 bg-white flex justify-center flex-col items-center p-4'>
-                <div className='w-4/5 aspect-square bg-black flex justify-center'> 
+                <div className='w-4/5 aspect-square bg-black flex justify-center'>
                   <img src={album.Image} alt={album.album} className="w-full h-full object-cover" />
                 </div>
                 <br></br>
@@ -49,7 +49,7 @@ function DiscographyPage() {
               </div>
             ))}
           </div>
-        </div> 
+        </div>
       </div>
     </>
   )
