@@ -1,5 +1,6 @@
 import NavbarComponent from "./NavbarComponent";
 import { useEffect, useState } from "react";
+import userIcon from "/siteimages/user.png";
 
 type Album = {
   albumid: number;
@@ -43,14 +44,22 @@ function ProfilePage() {
   return (
     <div className='bg-[#D496BB] min-h-screen'>
       <NavbarComponent />
-      {/* <link href = 'https://www.flaticon.com/free-icon/woman_6997662?term=profile&page=1&position=13&origin=search&related_id=6997662'></link> */}
-      <h1 className='text-6xl font-bold text-center mt-8 text-white'> Welcome Jane Doe</h1>
+      <div className='flex items-center justify-center mt-8 gap-4'>
+        <img 
+          src={userIcon}
+          alt="Profile Icon"
+          className='w-24 h-24'
+        />
+        <h1 className='text-6xl font-bold text-white'>Welcome Jane Doe</h1>
+    </div>
       <p className='text-desc font-bold text-center mt-8 text-white'> Your Saved Albums </p>
       
       <div className='px-32'>
         <div className='flex flex-row flex-wrap justify-center gap-4 py-8'>
           {profileAlbums.map(album => (
             <div key={album.albumid} className='w-1/5 bg-white flex justify-center flex-col items-center p-4'>
+              <img src={`http://localhost:3000${album.Image}`} alt={album.album} className="w-full h-full object-cover" />
+
               <img src={`http://localhost:3000${album.Image}`} alt={album.album} className="w-full h-full object-cover" />
               <br></br>
               <h3 className='font-bold text-2xl'> {album.album} </h3>
