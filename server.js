@@ -32,7 +32,7 @@ let team_members = [
     {name: "Theresa Killiam", image: "/teamPics/Theresa.png"},
     {name: "Inaya Rajwani", image: "/teamPics/Inaya.png"},
     {name: "Rana Hamood ", image: "/teamPics/Rana.png"},
-    {name: "Golshan R Darabad", image: "/teamPics/Golshan.png"},
+    {name: "Golshan Rasoulzadeh", image: "/teamPics/Golshan.png"},
 
 ];
 
