@@ -69,12 +69,13 @@ function DiscographyPage() {
         <div className='px-32'>
           <div className='flex flex-row flex-wrap justify-center gap-4 py-8'>
             {albums.map(album => (
-              <div key={album.albumid} className='w-1/5 bg-white flex justify-center flex-col items-center p-4'>
-                <div className='w-4/5 aspect-square bg-black flex justify-center'>
+              <div key={album.albumid} className='w-1/4 bg-white flex justify-center flex-col items-center p-4'>
+                {/* <div className='w-4/5 aspect-square bg-black flex justify-center'>
                   <img src={album.Image} alt={album.album} className="w-full h-full object-cover" />
-                </div>
+                </div> */}
+                <img src={album.Image} alt={album.album} className="w-full h-full object-cover" />
                 <br></br>
-                <h3 className='font-bold text-2xl'> {album.album} </h3>
+                <h3 className='font-bold text-2xl text-center'> {album.album} </h3>
                 <br></br>
                 <h3 className='font-bold text-1xl'> {album.artist} </h3>
                 {/* on click to add albumn to profile, button changes to ADDED and changed to grey to indicate it was added. fixed width so it stays consistent*/}

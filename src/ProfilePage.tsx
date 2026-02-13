@@ -57,10 +57,10 @@ function ProfilePage() {
       <div className='px-32'>
         <div className='flex flex-row flex-wrap justify-center gap-4 py-8'>
           {profileAlbums.map(album => (
-            <div key={album.albumid} className='w-1/5 bg-white flex justify-center flex-col items-center p-4'>
+            <div key={album.albumid} className='w-1/4 bg-white flex justify-center flex-col items-center p-4'>
               <img src={`http://localhost:3000${album.Image}`} alt={album.album} className="w-full h-full object-cover" />
               <br></br>
-              <h3 className='font-bold text-2xl'> {album.album} </h3>
+              <h3 className='font-bold text-2xl text-center'> {album.album} </h3>
               <br></br>
               <h3 className='font-bold text-1xl'> {album.artist} </h3>
               <button onClick={() => deleteAlbum(album.albumid)} className="w-40 p-4 font-bold mt-4 text-white border border-white bg-gray-400 hover:scale-105 transition duration-300 ease-in-out">Remove Album</button>
