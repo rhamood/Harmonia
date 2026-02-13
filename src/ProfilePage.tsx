@@ -59,8 +59,6 @@ function ProfilePage() {
           {profileAlbums.map(album => (
             <div key={album.albumid} className='w-1/5 bg-white flex justify-center flex-col items-center p-4'>
               <img src={`http://localhost:3000${album.Image}`} alt={album.album} className="w-full h-full object-cover" />
-
-              <img src={`http://localhost:3000${album.Image}`} alt={album.album} className="w-full h-full object-cover" />
               <br></br>
               <h3 className='font-bold text-2xl'> {album.album} </h3>
               <br></br>
