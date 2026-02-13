@@ -30,8 +30,8 @@ We think the biggest challenge for us was learning how to use Typescript with ou
 One thing we are really proud of is our website design. When we first met for this assignment, we decided it would be best if we created a figma so we knew exactly what features we wanted to implement and how we wanted it to look. From there, we were able to easily split the pages between the four of us and we ended up working really well together. We are also really proud of the API calls we did throughout the project. We were able to accomplish 3 GETs, 1 DELETE and 1 POST  across the site. Originally we aimed for one of each but as the assignment process started we found more uses. Overall, this assignment showed all of us how to successfully implement API calls and create a full-stack application. 
 
 ## Contributors
-* Rana Hamood
-* Theresa Killiam
-* Inaya Rajwani
-* Golshan Rasoulzadeh Darabad 
+* Rana Hamood-(501173778)
+* Theresa Killiam-(501101333)
+* Inaya Rajwani-(501037903)
+* Golshan Rasoulzadeh Darabad-(501112080) 
 
