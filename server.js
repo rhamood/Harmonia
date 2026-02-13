@@ -27,7 +27,36 @@ let album_catalogue = [
     { albumid:11, Image:"/albumcovers/11.jpg", hasImage:true, album:"So Close to What",  artist:"Tate McRae",},
     { albumid:12, Image:"/albumcovers/12.jpg", hasImage:true, album:"Honeymoon", artist:"Lana Del Rey",},
 ];
+
+let profile_albums = []
+
 app.get('/api/albums', (req, res) => {
     res.status(200).json(album_catalogue);
 });
+
+app.get('/api/profile/albums', (req, res) => {
+    res.status(200).json(profile_albums);
+});
+
+app.post("/api/profile/albums", (req, res) => {
+  const id = Number(req.body.albumid);
+  const album = album_catalogue.find((a) => a.albumid === id);
+
+  if (profile_albums.some((a) => a.albumid === id)) {
+    return res.status(409).json({ message: "Album already in profile" });
+  }
+
+  profile_albums.push(album);
+  return res.status(201).json(album);
+});
+
+
+app.delete('/api/profile/albums/:id', (req, res) => {
+    const id = Number(req.params.id);
+    const before = profile_albums.length;
+    profile_albums = profile_albums.filter(a => a.albumid !== id);
+
+    return res.status(200).json({ message: "Removed from profile" });
+});
+
 app.listen(PORT, () => { console.log("Server started on port:" + PORT)}); // start server and listen on specified port

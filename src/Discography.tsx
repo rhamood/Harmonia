@@ -12,7 +12,8 @@ type Album = {
 
 function DiscographyPage() {
   const [albums, setAlbums] = useState<Album[]>([]); // creates empty array for albums
-
+  const [profileAlbums, setProfileAlbums] = useState<number[]>([]); //  creates rmpty array for albumns already added to profile
+  
   useEffect(() => {
     const fetchAlbums = async () => {
       try {
@@ -26,6 +27,37 @@ function DiscographyPage() {
     };
     fetchAlbums();
   }, []);
+
+  // get albumns already added to the profile page on page load
+  useEffect(() => {
+    const fetchProfile = async () => {
+      try {
+        const res = await fetch("http://localhost:3000/api/profile/albums");
+        const data = await res.json();
+        setProfileAlbums(data.map((a: Album) => a.albumid)); //store only albumnids 
+      }
+      catch (err) {
+        console.error(err); // error handling
+      }
+    };
+    fetchProfile();
+  }, []);
+
+  const addAlbumToProfile = async (albumid: number) => { //adds albumn to profile with POST request 
+    try {
+      const res = await fetch("http://localhost:3000/api/profile/albums", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ albumid }),
+      });
+      
+      setProfileAlbums(prev => [...prev, albumid]); //add albumnid to profileAlbums array to update button state to ADDED
+  
+    } 
+    catch (e) {
+      console.error(e);
+    }
+  };
 
   return (
     <>
@@ -45,7 +77,11 @@ function DiscographyPage() {
                 <h3 className='font-bold text-2xl'> {album.album} </h3>
                 <br></br>
                 <h3 className='font-bold text-1xl'> {album.artist} </h3>
-                <button className='p-4 font-bold mt-4 text-white border border-white bg-[#EFBFE9]'> + Add Album </button>
+                {/* on click to add albumn to profile, button changes to ADDED and changed to grey to indicate it was added. fixed width so it stays consistent*/}
+                <button 
+                  onClick={() => addAlbumToProfile(album.albumid)} className={`w-40 p-4 font-bold mt-4 text-white border border-white ${profileAlbums.includes(album.albumid) ? "bg-gray-400" : "bg-[#EFBFE9]"}`}>
+                  {profileAlbums.includes(album.albumid) ? "Added" : "+ Add Album"}
+                </button>
               </div>
             ))}
           </div>
