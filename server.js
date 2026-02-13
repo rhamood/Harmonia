@@ -28,7 +28,19 @@ let album_catalogue = [
     { albumid:12, Image:"/albumcovers/12.jpg", hasImage:true, album:"Honeymoon", artist:"Lana Del Rey",},
 ];
 
+let team_members = [
+    {name: "Theresa Killiam", image: "/teamPics/Theresa.png"},
+    {name: "Inaya Rajwani", image: "/teamPics/Inaya.png"},
+    {name: "Rana Hamood ", image: "/teamPics/Rana.png"},
+    {name: "Golshan R Darabad", image: "/teamPics/Golshan.png"},
+
+];
+
 let profile_albums = []
+
+app.get('/api/team', (req, res) => {
+    res.status(200).json(team_members);
+});
 
 app.get('/api/albums', (req, res) => {
     res.status(200).json(album_catalogue);
