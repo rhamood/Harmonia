@@ -78,8 +78,8 @@ function DiscographyPage() {
                 <br></br>
                 <h3 className='font-bold text-1xl'> {album.artist} </h3>
                 {/* on click to add albumn to profile, button changes to ADDED and changed to grey to indicate it was added. fixed width so it stays consistent*/}
-                <button 
-                  onClick={() => addAlbumToProfile(album.albumid)} className={`w-40 p-4 font-bold mt-4 text-white border border-white ${profileAlbums.includes(album.albumid) ? "bg-gray-400" : "bg-[#EFBFE9]"}`}>
+                <button
+                  onClick={() => addAlbumToProfile(album.albumid)} className={`w-40 p-4 font-bold mt-4 text-white border border-white hover:scale-105 transition duration-300 ease-in-out ${profileAlbums.includes(album.albumid) ? "bg-gray-400" : "bg-[#EFBFE9]"}`}>
                   {profileAlbums.includes(album.albumid) ? "Added" : "+ Add Album"}
                 </button>
               </div>

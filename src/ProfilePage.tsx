@@ -63,7 +63,7 @@ function ProfilePage() {
               <h3 className='font-bold text-2xl'> {album.album} </h3>
               <br></br>
               <h3 className='font-bold text-1xl'> {album.artist} </h3>
-              <button onClick={() => deleteAlbum(album.albumid)} className="w-40 p-4 font-bold mt-4 text-white border border-white bg-gray-400">Remove Album</button>
+              <button onClick={() => deleteAlbum(album.albumid)} className="w-40 p-4 font-bold mt-4 text-white border border-white bg-gray-400 hover:scale-105 transition duration-300 ease-in-out">Remove Album</button>
             </div>
           ))}
         </div>
