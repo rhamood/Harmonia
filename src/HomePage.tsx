@@ -114,7 +114,7 @@ function HomePage() {
                     <div className='w-full space-x-8 flex items-center justify-center mt-12 pb-12'>
                     { developer.map(developers => (
                         <div className='group relative flex-col'>
-                                <img src={developers.image} alt={developers.name} className="w-80% h-96 object-fit flex justify-center group-hover:opacity-50 transition duration-300 group-hover:brightness-30"></img>
+                                <img src={developers.image} alt={developers.name} className="rounded-2xl w-80% h-96 object-fit flex justify-center group-hover:opacity-50 transition duration-300 group-hover:brightness-30"></img>
                             <div className='absolute inset-0 left-0 right-0 top-1/2 duration-300 pointer-events-none'>
                                 <p className='text-center hidden group-hover:block text-black font-bold text-2xl'> {developers.name} </p>
                             </div>
