@@ -47,7 +47,7 @@ function HomePage() {
                             </p>
                             <div className="flex-col gap-2 ml-auto py-2 font-bold">
                                 <p className='pb-2'> GitHub Page: </p>
-                                <a href="https://github.com/rhamood/Audio-Content-Application" className="size-10 flex justify-center items-center transition duration-300 ease-in-out border p-2 rounded bg-[#edc0d3] hover:bg-[#d19fb4]">
+                                <a href="https://github.com/rhamood/Harmonia" className="size-10 flex justify-center items-center transition duration-300 ease-in-out border p-2 rounded bg-[#edc0d3] hover:bg-[#d19fb4]">
                                 <img src={code} alt="code icon" className="w-6" />
                                 </a>
                             </div>
