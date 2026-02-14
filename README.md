@@ -35,3 +35,6 @@ One thing we are really proud of is our website design. When we first met for th
 * Inaya Rajwani-(501037903)
 * Golshan Rasoulzadeh Darabad-(501112080) 
 
+## Video
+https://drive.google.com/file/d/1cpGhhlwSUv6ZUSCgctQkw7rS8zJpdz9a/view?usp=sharing 
+
