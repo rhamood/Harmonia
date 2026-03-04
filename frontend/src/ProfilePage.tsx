@@ -8,6 +8,7 @@ type Album = {
   Image: string;
   album: string;
   artist: string;
+  rating: string;
 };
 
 
@@ -37,6 +38,23 @@ function ProfilePage() {
     }  
   };
 
+    
+  const rateAlbum = async (id: number) => { // user can rate the album on their profile
+    
+    const answer = window.prompt("Rate the Album: 1, 2, 3, 4, or 5");
+    const nanswer = Number(answer);
+    let theRating = '';
+    for (let i = 0; i < nanswer; i++) {
+    theRating += "📀";
+    }
+    const album = profileAlbums.find(a => a.albumid === id);
+    if (!album) return;
+    album.rating = theRating;
+    setProfileAlbums([...profileAlbums]);
+
+    return;
+  };
+
   useEffect(() => { //load albumns on page load
     loadProfileAlbums();
   }, []);
@@ -63,7 +81,10 @@ function ProfilePage() {
               <h3 className='font-bold text-2xl text-center'> {album.album} </h3>
               <br></br>
               <h3 className='font-bold text-1xl'> {album.artist} </h3>
-              <button onClick={() => deleteAlbum(album.albumid)} className="w-40 p-4 font-bold mt-4 text-white border border-white bg-gray-400 hover:scale-105 transition duration-300 ease-in-out">Remove Album</button>
+              <h2 className='font-bold text-2xl'> {album.rating} </h2>
+              
+              <button onClick={() => rateAlbum(album.albumid)} className="w-50 p-4 font-bold mt-4 text-white border border-white bg-pink-400 hover:scale-105 transition duration-300 ease-in-out">Rate Album</button>
+              <button onClick={() => deleteAlbum(album.albumid)} className="w-50 p-4 font-bold mt-4 text-white border border-white bg-gray-400 hover:scale-105 transition duration-300 ease-in-out">Remove Album</button>
             </div>
           ))}
         </div>
