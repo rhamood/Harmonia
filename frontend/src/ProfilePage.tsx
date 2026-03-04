@@ -39,24 +39,6 @@ function ProfilePage() {
     }  
   };
 
- /*   
-  const rateAlbum = async (id: number) => { // user can rate the album on their profile
-    
-    const answer = window.prompt("Rate the Album: 1, 2, 3, 4, or 5");
-    const nanswer = Number(answer);
-    let theRating = '';
-    for (let i = 0; i < nanswer; i++) {
-    theRating += "📀";
-    }
-    const album = profileAlbums.find(a => a.albumid === id);
-    if (!album) return;
-    album.rating = theRating;
-    setProfileAlbums([...profileAlbums]);
-
-    return;
-  };
-  */
-
   const rateAlbum = async (id: number) => {
   const answer = window.prompt("Rate the Album: 1, 2, 3, 4, or 5");
   const nanswer = Number(answer);
