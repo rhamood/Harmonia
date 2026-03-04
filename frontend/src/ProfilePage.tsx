@@ -9,6 +9,7 @@ type Album = {
   album: string;
   artist: string;
   rating: string;
+  review: string;
 };
 
 
@@ -67,11 +68,16 @@ function ProfilePage() {
     theRating += "📀";
   }
 
+  const answerReview = window.prompt("Would you like to also add a review?");
+  if(answerReview == null){
+    return;
+  } 
+
   // save to backend
   await fetch("http://localhost:3000/api/profile/albums/" + id + "/rating", {
     method: "PUT",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ rating: theRating }),
+    body: JSON.stringify({ rating: theRating , review: answerReview}),
   });
 
   // update UI
@@ -79,6 +85,7 @@ function ProfilePage() {
   if (!album) return;
 
   album.rating = theRating;
+  album.review = answerReview;
   setProfileAlbums([...profileAlbums]);
 };
 
@@ -107,9 +114,11 @@ function ProfilePage() {
               <br></br>
               <h3 className='font-bold text-2xl text-center'> {album.album} </h3>
               <br></br>
-              <h3 className='font-bold text-1xl'> {album.artist} </h3>
+              <h3 className='font-bold text-1xl'> {album.artist}  </h3>
+              <br></br>
               <h2 className='font-bold text-2xl'> {album.rating} </h2>
-              
+              <h2 className='font-bold text-1xl text-sm text-yellow-500'> {album.review} </h2>
+
               <button onClick={() => rateAlbum(album.albumid)} className="w-50 p-4 font-bold mt-4 text-white border border-white bg-pink-400 hover:scale-105 transition duration-300 ease-in-out">Rate Album</button>
               <button onClick={() => deleteAlbum(album.albumid)} className="w-50 p-4 font-bold mt-4 text-white border border-white bg-gray-400 hover:scale-105 transition duration-300 ease-in-out">Remove Album</button>
             </div>
