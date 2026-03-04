@@ -71,4 +71,17 @@ app.delete('/api/profile/albums/:id', (req, res) => {
     return res.status(200).json({ message: "Removed from profile" });
 });
 
+
+// new 
+app.put("/api/profile/albums/:id/rating", (req, res) => {
+  const id = Number(req.params.id);
+  const { rating } = req.body;
+  const album = profile_albums.find(a => a.albumid === id);
+  if (!album) {
+    return res.status(404).json({ message: "Album not found in profile" });
+  }
+  album.rating = rating;
+  return res.status(200).json({ message: "Album now has rating weeeeeeeeee", album });
+});
+
 app.listen(PORT, () => { console.log("Server started on port:" + PORT)}); // start server and listen on specified port

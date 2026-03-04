@@ -38,7 +38,7 @@ function ProfilePage() {
     }  
   };
 
-    
+ /*   
   const rateAlbum = async (id: number) => { // user can rate the album on their profile
     
     const answer = window.prompt("Rate the Album: 1, 2, 3, 4, or 5");
@@ -54,6 +54,33 @@ function ProfilePage() {
 
     return;
   };
+  */
+
+  const rateAlbum = async (id: number) => {
+  const answer = window.prompt("Rate the Album: 1, 2, 3, 4, or 5");
+  const nanswer = Number(answer);
+
+  if (!nanswer || nanswer < 1 || nanswer > 5) return;
+
+  let theRating = "";
+  for (let i = 0; i < nanswer; i++) {
+    theRating += "📀";
+  }
+
+  // save to backend
+  await fetch("http://localhost:3000/api/profile/albums/" + id + "/rating", {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ rating: theRating }),
+  });
+
+  // update UI
+  const album = profileAlbums.find(a => a.albumid === id);
+  if (!album) return;
+
+  album.rating = theRating;
+  setProfileAlbums([...profileAlbums]);
+};
 
   useEffect(() => { //load albumns on page load
     loadProfileAlbums();
