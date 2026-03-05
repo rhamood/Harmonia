@@ -2,9 +2,15 @@ import express from 'express';
 import path from 'path';
 import cors from 'cors';
 import { fileURLToPath } from 'url';
+import mongoose from "mongoose";
+import Album from "./models/Album.js";
+// const mongoose = require("mongoose");
+// const Album = require("./models/Album");
 
 const app = express(); // create express object, initialize app
 const PORT = 3000;
+const DATABASE_HOST = "localhost";
+const DATABASE_PORT = 27017;
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -12,6 +18,17 @@ const __dirname = path.dirname(__filename);
 app.use(cors({ origin: 'http://localhost:5173' })); // allow CORS for the frontend running on port 5173
 app.use(express.json()); 
 app.use(express.static(path.join(__dirname, 'public'))); // serve static files from the 'public' directory
+
+const dbURL = `mongodb://${DATABASE_HOST}:${DATABASE_PORT}/album_catalogue`;
+mongoose.connect(dbURL);
+const db = mongoose.connection;
+db.on('error', function(e) {
+    console.log("Database connection error: " + e);
+});
+db.on('open', function() {
+    console.log("Database connected");
+});
+
 
 let album_catalogue = [
     { albumid:1, Image:"/albumcovers/1.jpg", hasImage:true, album:"Addison", artist:"Addison Rae", rating:null, review:null},
@@ -28,6 +45,25 @@ let album_catalogue = [
     { albumid:12, Image:"/albumcovers/12.jpg", hasImage:true, album:"Honeymoon", artist:"Lana Del Rey",rating:null, review:null},
 ];
 
+async function addTestAlbumsToMongoDB(){
+  const albumCount = await Album.countDocuments();
+  if (albumCount === 0) {
+    console.log('Adding test albums to db ...');
+    album_catalogue.forEach(album => {
+      const newAlbum = new Album(album);
+      newAlbum.save()
+        .then(() => console.log(`Album added with ID ${album.albumid}`))
+        .catch(err => console.error(`Error adding album with ID ${album.albumid}:`, err));
+    });
+    }
+    else {
+        console.log('Test albums already exist in db.');
+        return;
+    }
+}
+
+addTestAlbumsToMongoDB();
+
 let team_members = [
     {name: "Theresa Killiam", image: "/teamPics/Theresa.png"},
     {name: "Inaya Rajwani", image: "/teamPics/Inaya.png"},
@@ -36,52 +72,83 @@ let team_members = [
 
 ];
 
-let profile_albums = []
 
 app.get('/api/team', (req, res) => {
     res.status(200).json(team_members);
 });
 
-app.get('/api/albums', (req, res) => {
-    res.status(200).json(album_catalogue);
+app.get('/api/albums', async (req, res) => {
+    try {
+        const albums = await Album.find({});
+        res.status(200).json(albums);
+    } 
+    catch (err) {
+        console.error("Error retrieving albums from database:", err);
+        res.status(500).json({ message: "Error retrieving albums" });
+    }
 });
 
-app.get('/api/profile/albums', (req, res) => {
-    res.status(200).json(profile_albums);
+app.get('/api/profile/albums', async (req, res) => {
+  const albums = await Album.find({ inProfile: true });  
+  res.status(200).json(albums);
 });
 
-app.post("/api/profile/albums", (req, res) => {
-  const id = Number(req.body.albumid);
-  const album = album_catalogue.find((a) => a.albumid === id);
+app.post("/api/profile/albums", async (req, res) => {
+  try{
+    const album = await Album.findOneAndUpdate(
+      {albumid: req.body.albumid}, 
+      {inProfile: true},
+      {returnDocument: "after"}
+    );
+    
+  if (!album) {
+    return res.status(404).json({ message: "Album not found" });
+  }
+  return res.status(201).json(album);
 
-  if (profile_albums.some((a) => a.albumid === id)) {
-    return res.status(409).json({ message: "Album already in profile" });
+  } catch (err) {
+    console.error("Error adding album to profile:", err);
+    res.status(500).json({ message: "Error adding album to profile" });
+  }
+});
+
+app.delete('/api/profile/albums/:id', async (req, res) => {
+  try{
+    const album = await Album.findOneAndUpdate(
+    {albumid: Number(req.params.id)}, 
+    {inProfile: false},
+    {returnDocument: "after"}
+    ); 
+    if (!album) {
+      return res.status(404).json({ message: "Album not found" });
+    }
+    return res.status(200).json({ message: "Removed from profile" });
+  } catch (err) {
+    console.error("Error removing album from profile:", err);
+    res.status(500).json({ message: "Error removing album from profile" }); 
+
   }
 
-  profile_albums.push(album);
-  return res.status(201).json(album);
-});
-
-
-app.delete('/api/profile/albums/:id', (req, res) => {
-    const id = Number(req.params.id);
-    const before = profile_albums.length;
-    profile_albums = profile_albums.filter(a => a.albumid !== id);
-
-    return res.status(200).json({ message: "Removed from profile" });
 });
 
  
-app.put("/api/profile/albums/:id/rating", (req, res) => {
-  const id = Number(req.params.id);
-  const { rating , review} = req.body;
-  const album = profile_albums.find(a => a.albumid === id);
+app.put("/api/profile/albums/:id/rating", async (req, res) => {
+  try{
+    const album = await Album.findOneAndUpdate(
+      {albumid: Number(req.params.id)}, 
+      {rating: req.body.rating, review: req.body.review},
+      {returnDocument: "after"}
+    );
   if (!album) {
-    return res.status(404).json({ message: "Album not found in profile" });
+    return res.status(404).json({ message: "Album not found" });
   }
-  album.rating = rating;
-  album.review = review;
-  return res.status(200).json({ message: "Album now has rating weeeeeeeeee", album });
+  res.status(200).json({ message: "Album now has rating weeeeeeeeee", album });
+
+  } catch (err) {
+    console.error("Error updating album rating:", err);
+    res.status(500).json({ message: "Error updating album rating" });
+  }
+
 });
 
 app.listen(PORT, () => { console.log("Server started on port:" + PORT)}); // start server and listen on specified port
