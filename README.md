@@ -31,7 +31,7 @@ One thing we are really proud of is our website design. When we first met for th
 
 ## Contributors
 * Rana Hamood-(501173778)
-* Theresa Killiam-(501101333)
+* Theresa Killam-(501101333)
 * Inaya Rajwani-(501037903)
 * Golshan Rasoulzadeh Darabad-(501112080) 
 
