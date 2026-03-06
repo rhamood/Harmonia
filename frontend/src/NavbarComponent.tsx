@@ -7,8 +7,6 @@ function NavbarComponent() {
                 <li><Link to="/">Home</Link></li>
                 <li><Link to="/discography">Discography</Link></li>
                 <li><Link to="/game">Game</Link></li>
-            </ul>
-            <ul>
                 <li><Link to="/profile">Profile</Link></li>
             </ul>
         </nav>
