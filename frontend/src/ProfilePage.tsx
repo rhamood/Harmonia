@@ -18,7 +18,7 @@ function ProfilePage() {
 
   const loadProfileAlbums = async () => { //get albums 
     try {
-      const res = await fetch("http://localhost:3000/api/profile/albums");
+      const res = await fetch("http://localhost:8080/api/profile/albums");
       const data = await res.json();
       setProfileAlbums(data); // update with albums added to profile
     } 
@@ -29,7 +29,7 @@ function ProfilePage() {
 
   const deleteAlbum = async (id: number) => { // delete album from profile with 
     try {
-      await fetch("http://localhost:3000/api/profile/albums/" + id, {
+      await fetch("http://localhost:8080/api/profile/albums/" + id, {
         method: "DELETE",
       });
       setProfileAlbums(prev => prev.filter(album => album.albumid !== id)); // remove albumn from state to update page
@@ -56,7 +56,7 @@ function ProfilePage() {
   } 
 
   // save to backend
-  await fetch("http://localhost:3000/api/profile/albums/" + id + "/rating", {
+  await fetch("http://localhost:8080/api/profile/albums/" + id + "/rating", {
     method: "PUT",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ rating: theRating , review: answerReview}),
@@ -92,7 +92,7 @@ function ProfilePage() {
         <div className='flex flex-row flex-wrap justify-center gap-4 py-8'>
           {profileAlbums.map(album => (
             <div key={album.albumid} className='w-1/4 bg-white flex justify-center flex-col items-center p-4'>
-              <img src={`http://localhost:3000${album.Image}`} alt={album.album} className="w-full h-full object-cover" />
+              <img src={`http://localhost:8080${album.Image}`} alt={album.album} className="w-full h-full object-cover" />
               <br></br>
               <h3 className='font-bold text-2xl text-center'> {album.album} </h3>
               <br></br>

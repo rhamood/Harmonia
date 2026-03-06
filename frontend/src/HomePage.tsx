@@ -14,7 +14,7 @@ function HomePage() {
 
   const loadDevs = async () => { //get developers from api
     try {
-      const res = await fetch("http://localhost:3000/api/team");
+      const res = await fetch("http://localhost:8080/api/team");
       const data = await res.json();
       setDeveloper(data); // update with developers
     } 

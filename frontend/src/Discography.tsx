@@ -17,7 +17,7 @@ function DiscographyPage() {
   useEffect(() => {
     const fetchAlbums = async () => {
       try {
-        const res = await fetch("http://localhost:3000/api/albums") // gets the albums from api
+        const res = await fetch("http://localhost:8080/api/albums") // gets the albums from api
         const data = await res.json()
         setAlbums(data)
       }
@@ -32,7 +32,7 @@ function DiscographyPage() {
   useEffect(() => {
     const fetchProfile = async () => {
       try {
-        const res = await fetch("http://localhost:3000/api/profile/albums");
+        const res = await fetch("http://localhost:8080/api/profile/albums");
         const data = await res.json();
         setProfileAlbums(data.map((a: Album) => a.albumid)); //store only albumnids 
       }
@@ -45,7 +45,7 @@ function DiscographyPage() {
 
   const addAlbumToProfile = async (albumid: number) => { //adds albumn to profile with POST request 
     try {
-      const res = await fetch("http://localhost:3000/api/profile/albums", {
+      const res = await fetch("http://localhost:8080/api/profile/albums", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ albumid }),

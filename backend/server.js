@@ -8,7 +8,7 @@ import Album from "./models/Album.js";
 // const Album = require("./models/Album");
 
 const app = express(); // create express object, initialize app
-const PORT = 3000;
+const PORT = 8080;
 const DATABASE_HOST = "localhost";
 const DATABASE_PORT = 27017;
 
@@ -17,7 +17,7 @@ const __dirname = path.dirname(__filename);
 
 app.use(cors({ origin: 'http://localhost:5173' })); // allow CORS for the frontend running on port 5173
 app.use(express.json()); 
-app.use(express.static(path.join(__dirname, 'public'))); // serve static files from the 'public' directory
+app.use(express.static(path.join(__dirname, '../frontend/public'))); // serve static files from the 'public' directory
 
 const dbURL = `mongodb://${DATABASE_HOST}:${DATABASE_PORT}/album_catalogue`;
 mongoose.connect(dbURL);
