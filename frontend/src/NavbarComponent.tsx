@@ -8,6 +8,9 @@ function NavbarComponent() {
                 <li><Link to="/discography">Discography</Link></li>
                 <li><Link to="/game">Game</Link></li>
                 <li><Link to="/profile">Profile</Link></li>
+            <ul>
+                <li><Link to="/auth">Login</Link></li>
+            </ul>
             </ul>
         </nav>
   )

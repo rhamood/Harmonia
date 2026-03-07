@@ -7,7 +7,12 @@ interface FormData{
     confirmPassword: string;
 }
 
-const AuthPage = () => {
+interface AuthProps {
+    onSuccess?: (user: object) => void; // called with user data when login succeeds
+    onClose?: () => void;
+}
+
+const AuthPage = ({ onSuccess, onClose }: AuthProps) => {
 
     //false = Register, true = Login
     const [isLogin, setIsLogin] = useState(false);
@@ -89,9 +94,7 @@ const AuthPage = () => {
         setSuccess(res.ok);
 
         if (res.ok) {
-            // save logged-in user to localStorage so other pages (e.g. ProfilePage) can access it
-            localStorage.setItem("loggedInUser", JSON.stringify(result.user));
-            window.location.href = "/profile"; // redirect to profile page
+            onSuccess?.(result.user);
         }
     }
   };
