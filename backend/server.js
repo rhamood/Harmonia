@@ -72,8 +72,6 @@ let team_members = [
 
 ];
  
-let users = [];
-
 app.get('/api/team', (req, res) => {
     res.status(200).json(team_members);
 });
@@ -152,6 +150,8 @@ app.put("/api/profile/albums/:id/rating", async (req, res) => {
 
 });
 
+let users = [];
+
 // Register — saves new user to memory array if email isn't taken
 app.post('/api/register', (req, res) => {
   const { name, email, password, confirmPassword } = req.body;
@@ -183,7 +183,10 @@ app.post('/api/login', (req, res) => {
     return res.status(401).json({ message: "Invalid email or password." });
   }
 
-  return res.status(200).json({ message: "Login successful!", user });
+  return res.status(200).json({
+    message: "Login successful!",
+    user: { name: user.name, email: user.email },
+  });
 });
 
 app.listen(PORT, () => { console.log("Server started on port:" + PORT)}); // start server and listen on specified port
