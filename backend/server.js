@@ -31,7 +31,7 @@ db.on('open', function() {
 
 
 let album_catalogue = [
-    { albumid:1, Image:"/albumcovers/1.jpg", hasImage:true, album:"Addison", artist:"Addison Rae", rating:null, review:null},
+    { albumid:1, Image:"/albumcovers/1.jpg", hasImage:true, album:"Addison", artist:"Addison Rae", rating:null, review:null, inProfile: true},
     { albumid:2, Image:"/albumcovers/2.jpg", hasImage:true, album:"thank u, next", artist:"Ariana Grande",rating:null, review:null},
     { albumid:3, Image:"/albumcovers/3.jpg", hasImage:true, album:"RENAISSANCE", artist:"Beyoncé",rating:null, review:null},
     { albumid:4, Image:"/albumcovers/4.jpg", hasImage:true, album:"Romance", artist:"Camila Cabello",  rating:null, review:null},
@@ -40,7 +40,7 @@ let album_catalogue = [
     { albumid:7, Image:"/albumcovers/7.jpg", hasImage:true, album:"locket", artist:"Madison Beer", rating:null, review:null},
     { albumid:8, Image:"/albumcovers/8.jpg", hasImage:true, album:"The Art of Loving",   artist:"Olivia Dean", rating:null, review:null},
     { albumid:9, Image:"/albumcovers/9.jpg", hasImage:true, album:"emails i can't send", artist:"Sabrina Carpenter",rating:null, review:null},
-    { albumid:10, Image:"/albumcovers/10.jpg", hasImage:true, album:"SOS", artist:"SZA", rating:null, review:null},
+    { albumid:10, Image:"/albumcovers/10.jpg", hasImage:true, album:"SOS", artist:"SZA", rating:null, review:null, inProfile: true},
     { albumid:11, Image:"/albumcovers/11.jpg", hasImage:true, album:"So Close to What",  artist:"Tate McRae",rating:null, review:null},
     { albumid:12, Image:"/albumcovers/12.jpg", hasImage:true, album:"Honeymoon", artist:"Lana Del Rey",rating:null, review:null},
 ];
