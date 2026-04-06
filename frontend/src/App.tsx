@@ -5,6 +5,7 @@ import ProfilePage from "./ProfilePage";
 import GamePage from "./gamePage";
 import AuthPage from "./Auth";
 import FAQPage from "./FAQ";
+import HelpDesk from "./HelpDesk";
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
         <Routes>
           <Route path="/" element={<AuthPage />} />
           <Route path="/faq" element={<FAQPage />} />
+          <Route path="/helpdesk" element={<HelpDesk />} />
           <Route path="/discography" element={<DiscographyPage />} />
           <Route path="/profile" element={<ProfilePage />} />
           <Route path="/game" element={<GamePage />} />

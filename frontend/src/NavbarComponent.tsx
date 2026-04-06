@@ -9,6 +9,7 @@ function NavbarComponent() {
                 <li><Link to="/profile">Profile</Link></li>
                 <li><Link to="/game">Game</Link></li>
                 <li><Link to="/faq">FAQ</Link></li>
+                <li><Link to="/helpdesk">Help Desk</Link></li>
             {/* <ul>
                 <li><Link to="/auth">Login</Link></li>
             </ul> */}
