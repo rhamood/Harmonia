@@ -3,6 +3,9 @@ import { useEffect, useState } from "react";
 import userIcon from "/siteimages/user.png";
 import Popup from 'reactjs-popup';
 import 'reactjs-popup/dist/index.css';
+import { Modal } from 'react-responsive-modal';
+import React from "react";
+import 'react-responsive-modal/styles.css';
 
 type Album = {
   albumid: number;
@@ -18,6 +21,11 @@ type Album = {
 function ProfilePage() {
   const [profileAlbums, setProfileAlbums] = useState<Album[]>([]); //empty array to store albums added to profile
   const [open, setOpen] = useState(false);
+
+  const onOpenModal = () => setOpen(true);
+  const onCloseModal = () => setOpen(false);
+
+  const myRef = React.useRef(null);
 
 
   const loadProfileAlbums = async () => { //get albums 
@@ -76,7 +84,7 @@ function ProfilePage() {
 };
 
 
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// ratings
   const star1 = async (id: number) => {
   // save to backend
   await fetch("http://localhost:8080/api/profile/albums/" + id + "/rating", {
@@ -149,6 +157,30 @@ function ProfilePage() {
 };
 
 
+//////////////////////////////////////////////////////////////////////////////////////////////////////////// review
+const myReview = async (id: number) => {
+  // save to backend
+  await fetch("http://localhost:8080/api/profile/albums/" + id + "/rating", {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ review: '📀📀📀📀📀' }),
+  });
+  // update UI
+  const album = profileAlbums.find(a => a.albumid === id);
+  if (!album) return;
+
+  album.review = '📀📀📀📀📀';
+  setProfileAlbums([...profileAlbums]);
+};
+
+
+
+
+
+
+
+
+
   useEffect(() => { //load albumns on page load
     loadProfileAlbums();
   }, []);
@@ -181,26 +213,40 @@ function ProfilePage() {
               <h2 className='font-bold text-2xl'> {album.rating} </h2>
               <h2 className='font-bold text-1xl text-sm text-yellow-500'> {album.review} </h2>
 
-              <Popup trigger={<button className="w-50 p-4 font-bold mt-4 text-white border border-white bg-pink-400 hover:scale-105 transition duration-300 ease-in-out"> Rate Album </button>} position="top center">
-                <div className="w-50 h-50">
+        
+      <div>
+      <button onClick={onOpenModal} className="w-50 p-4 font-bold mt-4 text-white border border-white bg-pink-400 hover:scale-105 transition duration-300 ease-in-out">Rate Album</button>
+      <Modal open={open} onClose={onCloseModal} center>
+        <div className="w-70 h-45 text-center mt-4">
+          
+                  <h2> How many Golden CDs do you rate it?</h2>
+                  <br></br>
                   <button onClick={() => star1(album.albumid)}> 📀 </button>
                   <button onClick={() => star2(album.albumid)}> 📀 </button>
                   <button onClick={() => star3(album.albumid)}> 📀 </button>
                   <button onClick={() => star4(album.albumid)}> 📀 </button>
                   <button onClick={() => star5(album.albumid)}> 📀 </button>
-                </div>
-              </Popup>
+                  <br></br>
+                  <br></br>
+                  <h2> Would you like to also add a review?</h2>
+                  <label>
+                   <textarea name="postContent" rows={2} cols={35} />
+                  </label>
+         </div>
+      </Modal>
+      </div>
 
-              <button onClick={() => deleteAlbum(album.albumid)} className="w-50 p-4 font-bold mt-4 text-white border border-white bg-gray-400 hover:scale-105 transition duration-300 ease-in-out">Remove Album</button>
+    <button onClick={() => deleteAlbum(album.albumid)} className="w-50 p-4 font-bold mt-4 text-white border border-white bg-gray-400 hover:scale-105 transition duration-300 ease-in-out">Remove Album</button>
+
 
             </div>
           ))}
         </div>
 
-          <Popup trigger={<button> Trigger</button>} position="center center">
-    <div>Popup content here !!</div>
-  </Popup>
+      
+  
       </div>
+
     </div>
   );
 }
