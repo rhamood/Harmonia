@@ -1,6 +1,8 @@
 import NavbarComponent from "./NavbarComponent";
 import { useEffect, useState } from "react";
 import userIcon from "/siteimages/user.png";
+import Popup from 'reactjs-popup';
+import 'reactjs-popup/dist/index.css';
 
 type Album = {
   albumid: number;
@@ -15,6 +17,8 @@ type Album = {
 
 function ProfilePage() {
   const [profileAlbums, setProfileAlbums] = useState<Album[]>([]); //empty array to store albums added to profile
+  const [open, setOpen] = useState(false);
+
 
   const loadProfileAlbums = async () => { //get albums 
     try {
@@ -87,6 +91,8 @@ function ProfilePage() {
         <h1 className='text-6xl font-bold text-white'>Welcome Jane Doe</h1>
     </div>
       <p className='text-desc font-bold text-center mt-8 text-white'> Your Saved Albums </p>
+
+      
       
       <div className='px-32'>
         <div className='flex flex-row flex-wrap justify-center gap-4 py-8'>
@@ -103,9 +109,28 @@ function ProfilePage() {
 
               <button onClick={() => rateAlbum(album.albumid)} className="w-50 p-4 font-bold mt-4 text-white border border-white bg-pink-400 hover:scale-105 transition duration-300 ease-in-out">Rate Album</button>
               <button onClick={() => deleteAlbum(album.albumid)} className="w-50 p-4 font-bold mt-4 text-white border border-white bg-gray-400 hover:scale-105 transition duration-300 ease-in-out">Remove Album</button>
+              <Popup trigger={<button > testing </button>} position="top center">
+                <div>Radio buttons:
+        <label>
+          <input type="radio" name="myRadio" value="option1" />
+          Option 1
+        </label>
+        <label>
+          <input type="radio" name="myRadio" value="option2" />
+          Option 2
+        </label>
+        <label>
+          <input type="radio" name="myRadio" value="option3" />
+          Option 3
+        </label></div>
+              </Popup>
             </div>
           ))}
         </div>
+
+          <Popup trigger={<button> Trigger</button>} position="right center">
+    <div>Popup content here !!</div>
+  </Popup>
       </div>
     </div>
   );
