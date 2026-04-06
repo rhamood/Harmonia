@@ -75,6 +75,80 @@ function ProfilePage() {
   setProfileAlbums([...profileAlbums]);
 };
 
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  const star1 = async (id: number) => {
+  // save to backend
+  await fetch("http://localhost:8080/api/profile/albums/" + id + "/rating", {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ rating: '📀' }),
+  });
+  // update UI
+  const album = profileAlbums.find(a => a.albumid === id);
+  if (!album) return;
+
+  album.rating = '📀';
+  setProfileAlbums([...profileAlbums]);
+};
+  const star2 = async (id: number) => {
+  // save to backend
+  await fetch("http://localhost:8080/api/profile/albums/" + id + "/rating", {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ rating: '📀📀' }),
+  });
+  // update UI
+  const album = profileAlbums.find(a => a.albumid === id);
+  if (!album) return;
+
+  album.rating = '📀📀';
+  setProfileAlbums([...profileAlbums]);
+};
+  const star3 = async (id: number) => {
+  // save to backend
+  await fetch("http://localhost:8080/api/profile/albums/" + id + "/rating", {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ rating: '📀📀📀' }),
+  });
+  // update UI
+  const album = profileAlbums.find(a => a.albumid === id);
+  if (!album) return;
+
+  album.rating = '📀📀📀';
+  setProfileAlbums([...profileAlbums]);
+};
+  const star4 = async (id: number) => {
+  // save to backend
+  await fetch("http://localhost:8080/api/profile/albums/" + id + "/rating", {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ rating: '📀📀📀📀' }),
+  });
+  // update UI
+  const album = profileAlbums.find(a => a.albumid === id);
+  if (!album) return;
+
+  album.rating = '📀📀📀📀';
+  setProfileAlbums([...profileAlbums]);
+};
+  const star5 = async (id: number) => {
+  // save to backend
+  await fetch("http://localhost:8080/api/profile/albums/" + id + "/rating", {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ rating: '📀📀📀📀📀' }),
+  });
+  // update UI
+  const album = profileAlbums.find(a => a.albumid === id);
+  if (!album) return;
+
+  album.rating = '📀📀📀📀📀';
+  setProfileAlbums([...profileAlbums]);
+};
+
+
   useEffect(() => { //load albumns on page load
     loadProfileAlbums();
   }, []);
@@ -107,28 +181,23 @@ function ProfilePage() {
               <h2 className='font-bold text-2xl'> {album.rating} </h2>
               <h2 className='font-bold text-1xl text-sm text-yellow-500'> {album.review} </h2>
 
-              <button onClick={() => rateAlbum(album.albumid)} className="w-50 p-4 font-bold mt-4 text-white border border-white bg-pink-400 hover:scale-105 transition duration-300 ease-in-out">Rate Album</button>
-              <button onClick={() => deleteAlbum(album.albumid)} className="w-50 p-4 font-bold mt-4 text-white border border-white bg-gray-400 hover:scale-105 transition duration-300 ease-in-out">Remove Album</button>
-              <Popup trigger={<button > testing </button>} position="top center">
-                <div>Radio buttons:
-        <label>
-          <input type="radio" name="myRadio" value="option1" />
-          Option 1
-        </label>
-        <label>
-          <input type="radio" name="myRadio" value="option2" />
-          Option 2
-        </label>
-        <label>
-          <input type="radio" name="myRadio" value="option3" />
-          Option 3
-        </label></div>
+              <Popup trigger={<button className="w-50 p-4 font-bold mt-4 text-white border border-white bg-pink-400 hover:scale-105 transition duration-300 ease-in-out"> Rate Album </button>} position="top center">
+                <div className="w-50 h-50">
+                  <button onClick={() => star1(album.albumid)}> 📀 </button>
+                  <button onClick={() => star2(album.albumid)}> 📀 </button>
+                  <button onClick={() => star3(album.albumid)}> 📀 </button>
+                  <button onClick={() => star4(album.albumid)}> 📀 </button>
+                  <button onClick={() => star5(album.albumid)}> 📀 </button>
+                </div>
               </Popup>
+
+              <button onClick={() => deleteAlbum(album.albumid)} className="w-50 p-4 font-bold mt-4 text-white border border-white bg-gray-400 hover:scale-105 transition duration-300 ease-in-out">Remove Album</button>
+
             </div>
           ))}
         </div>
 
-          <Popup trigger={<button> Trigger</button>} position="right center">
+          <Popup trigger={<button> Trigger</button>} position="center center">
     <div>Popup content here !!</div>
   </Popup>
       </div>
