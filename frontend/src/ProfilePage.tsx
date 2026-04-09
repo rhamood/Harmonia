@@ -20,11 +20,11 @@ type Album = {
 
 function ProfilePage() {
   const [profileAlbums, setProfileAlbums] = useState<Album[]>([]); //empty array to store albums added to profile
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState<number | null>(null);
+  // const [open, setOpen] = useState(false);
 
-  const onOpenModal = () => setOpen(true);
-  const onCloseModal = () => setOpen(false);
-
+  // const onOpenModal = () => setOpen(true);
+  // const onCloseModal = () => setOpen(false);
   const [note, setNote] = useState('');
 
   const myRef = React.useRef(null);
@@ -220,8 +220,8 @@ const myReview = async (id: number) => {
 
         
       <div>
-      <button onClick={onOpenModal} className="w-50 p-4 font-bold mt-4 text-white border border-white bg-pink-400 hover:scale-105 transition duration-300 ease-in-out">Rate Album</button>
-      <Modal open={open} onClose={onCloseModal} center>
+      <button onClick={() => setOpen(album.albumid)} className="w-50 p-4 font-bold mt-4 text-white border border-white bg-pink-400 hover:scale-105 transition duration-300 ease-in-out">Rate Album</button>
+      <Modal open={open === album.albumid} onClose={() => setOpen(null)} center>
         <div className="w-85 h-55 text-center ">
           
                   <h2> How many Golden CDs do you rate it?</h2>
