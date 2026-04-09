@@ -16,7 +16,7 @@ function FAQPage() {
         <>
             <div className='bg-[#D496BB] min-h-full'>
                 <NavbarComponent />
-                <div className='px-32'>
+                <div className='px-32 flex justify-center'>
                     <h1 className='text-7xl font-bold text-center mt-8 text-white'> Frequently Asked Questions </h1>
                 </div>
                 <br></br>

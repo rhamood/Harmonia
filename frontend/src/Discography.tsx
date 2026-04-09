@@ -67,17 +67,15 @@ function DiscographyPage() {
         <p className='text-desc font-bold text-center mt-8 text-white'> Find Your Next Fave at the Disco! </p>
 
         <div className='px-32'>
-          <div className='flex flex-row flex-wrap justify-center gap-4 py-8'>
+          {/* grid columns change based on screen size to avoid overlap */}
+          <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 justify-center gap-4 py-8'>
             {albums.map(album => (
-              <div key={album.albumid} className='w-1/4 bg-white flex justify-center flex-col items-center p-4'>
-                {/* <div className='w-4/5 aspect-square bg-black flex justify-center'>
-                  <img src={album.Image} alt={album.album} className="w-full h-full object-cover" />
-                </div> */}
+              <div key={album.albumid} className='w-full bg-white flex justify-center flex-col items-center p-4'>
                 <img src={album.Image} alt={album.album} className="w-full h-full object-cover" />
                 <br></br>
                 <h3 className='font-bold text-2xl text-center'> {album.album} </h3>
                 <br></br>
-                <h3 className='font-bold text-1xl'> {album.artist} </h3>
+                <h3 className='font-bold text-xl'> {album.artist} </h3>
                 {/* on click to add albumn to profile, button changes to ADDED and changed to grey to indicate it was added. fixed width so it stays consistent*/}
                 <button
                   onClick={() => addAlbumToProfile(album.albumid)} className={`w-40 p-4 font-bold mt-4 text-white border border-white hover:scale-105 transition duration-300 ease-in-out ${profileAlbums.includes(album.albumid) ? "bg-gray-400" : "bg-[#EFBFE9]"}`}>

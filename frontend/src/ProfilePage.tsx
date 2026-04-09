@@ -202,16 +202,13 @@ const myReview = async (id: number) => {
           alt="Profile Icon"
           className='w-24 h-24'
         />
-        <h1 className='text-6xl font-bold text-white'>Welcome Jane Doe</h1>
-    </div>
-      <p className='text-desc font-bold text-center mt-8 text-white'> Your Saved Albums </p>
-
-      
-      
+        <h1 className='text-6xl font-bold text-white text-center'>Welcome Jane Doe</h1>
+    </div>    
+    <p className='text-desc font-bold text-center text-white'> Your Saved Albums </p>
       <div className='px-32'>
-        <div className='flex flex-row flex-wrap justify-center gap-4 py-8'>
+        <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 py-8'>
           {profileAlbums.map(album => (
-            <div key={album.albumid} className='w-1/4 bg-white flex justify-center flex-col items-center p-4'>
+            <div key={album.albumid} className='w-full bg-white flex justify-center flex-col items-center p-4'>
               <img src={`http://localhost:8080${album.Image}`} alt={album.album} className="w-full h-full object-cover" />
               <br></br>
               <h3 className='font-bold text-2xl text-center'> {album.album} </h3>

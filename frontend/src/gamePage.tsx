@@ -84,13 +84,15 @@ function GamePage() {
     };
 
     return (
-        <div className="bg-[#D496BB] h-screen">
+        <div className="bg-[#D496BB] min-h-screen">
             <NavbarComponent />
-            <div className="flex flex-col items-center gap-6">
+            <div className="flex flex-col items-center gap-6 px-4 sm:px-8 py-6">
+                {/* title */}
                 <h1 className="text-6xl font-bold text-center mt-8 text-white">Game Page</h1>
                 <p className="font-bold text-center text-white">Welcome to the Harmonia Gameshow! Here are some album based questions have fun!</p>
+                {/* questions */}
                 <h2 className="text-white text-2xl"> <strong>Question {currentIndex + 1}:</strong> {currentQuestion.question}</h2>
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
                     {currentQuestion.options.map((option, index) => (
                         <button
                             key={index}
