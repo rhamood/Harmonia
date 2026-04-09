@@ -159,6 +159,23 @@ function ProfilePage() {
 };
 
 
+  const removeRating = async (id: number) => {
+  // save to backend
+  await fetch("http://localhost:8080/api/profile/albums/" + id + "/rating", {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ rating: '', review:'' }),
+  });
+  // update UI
+  const album = profileAlbums.find(a => a.albumid === id);
+  if (!album) return;
+
+  album.rating = '';
+  album.review = '';
+  setProfileAlbums([...profileAlbums]);
+};
+
+
 //////////////////////////////////////////////////////////////////////////////////////////////////////////// review
 const myReview = async (id: number) => {
 
@@ -260,7 +277,7 @@ const myReview = async (id: number) => {
       </div>
 
     <div className="text-center">
-    <button onClick={() => deleteAlbum(album.albumid)} className="w-50 p-4 font-bold mt-4 text-white border border-white bg-gray-400 hover:scale-105 transition duration-300 ease-in-out text-center">Remove Album</button>
+    <button onClick={() => removeRating(album.albumid)} className="w-50 p-4 font-bold mt-4 text-white border border-white bg-gray-400 hover:scale-105 transition duration-300 ease-in-out text-center">Remove Rating</button>
     </div>
 
             </div>
