@@ -1,3 +1,5 @@
+// Home page - Landing page for the application, overview of app, introduction, meet the develpopers, link to github repo
+
 import './App.css'
 import { useEffect, useState } from 'react';
 import icon from './assets/images/siteIcon.png'

@@ -1,3 +1,5 @@
+// Authentication page - handles user reigistration and login (form validation and feedback messages)
+
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -41,16 +43,19 @@ const AuthPage = ({ onSuccess, onClose }: AuthProps) => {
         setMessage("");
         setData(initialForm);
     };
+
     const password = data.password;
     //defining password criteria 
     const hasUpper = /[A-Z]/.test(password);
     const hasLower = /[a-z]/.test(password);
     const hasNumber = /[0-9]/.test(password);
     const hasSpecial = /[^A-Za-z0-9]/.test(password);
+
     //set default strength to weak and then check to see if it meets criteria for good or strong
     let strengthText = "Weak";
     let strengthColor = "bg-red-500";
     let strengthWidth = "w-1/3";
+
     //we define strong first as its more strict (has 8+ characters, lower, upper, number and special charater)
     if (password.length >= 8 && hasUpper && hasLower && hasNumber && hasSpecial) {
       strengthText = "Strong";
@@ -245,6 +250,7 @@ const AuthPage = ({ onSuccess, onClose }: AuthProps) => {
                 onChange={handleInputChange}
                 className="bg-white/80 border border-pink-200 rounded-xl px-4 py-3 text-pink-900 placeholder-pink-300 focus:outline-none focus:ring-2 focus:ring-pink-400 focus:bg-white transition"
               />
+              {/* live password strength indicator bar based on password complexity */}
               {!isLogin && data.password && (
                   <div className="mt-2">
                     <div className="flex justify-between text-xs mb-1">

@@ -1,6 +1,9 @@
+// Game page - displays questions and options for the quiz game, handles user interactions and scoring
+
 import NavbarComponent from "./NavbarComponent";
 import { useEffect, useState } from "react";
 
+//define structure of quiz questions from backend API
 interface Question {
     question: string;
     options: string[];
@@ -8,14 +11,12 @@ interface Question {
 }
 
 function GamePage() {
-    // const [currentIndex, setCurrentIndex] = useState(0);
-    // const [score, setScore] = useState(1);
-    // // const [finished, setFinished] = useState(false);
-    // const currentQuestion = questions[currentIndex];
+    //Stores all questions from API, current question index, and user score
     const [questions, setQuestions] = useState<Question[]>([]);
     const [currentIndex, setCurrentIndex] = useState(0);
     const [score, setScore] = useState(0);
 
+    // get quiz questions from backend API on page load and store in state, include error handling
     useEffect(() => {
     async function loadQuestions() {
         try {
@@ -30,8 +31,10 @@ function GamePage() {
     }
     loadQuestions();
 }, []);
-
+    //get current question base on curent index 
     const currentQuestion = questions[currentIndex];
+
+    //loading screen until questions are loaded from API
     if (questions.length === 0 || !currentQuestion) {
         return (
             <div className="bg-[#D496BB] min-h-screen">
@@ -44,17 +47,21 @@ function GamePage() {
         );
     }
 
+    //handles when user clicks an answer 
     const handleAnswer = (index: number) => {
         const isCorrect = currentQuestion.options[index] === currentQuestion.answer;
         const newScore = isCorrect ? score + 1 : score;
-
+        
+        //chekcs if the selected option is correct
         if (isCorrect) {
             setScore(newScore);
         }
-
+        //update score if correct and move to next quesition
         if (currentIndex < questions.length - 1) {
             setCurrentIndex(currentIndex + 1);
-        } else {
+        } 
+        //if last question, show final score and reset game
+        else {
             alert(`Your score is ${newScore} out of ${questions.length}`);
             setCurrentIndex(0);
             setScore(0);

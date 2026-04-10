@@ -1,3 +1,5 @@
+// Profile Page - shows user's albums added to profile, delete albums, write and delete reviews and ratings
+
 import NavbarComponent from "./NavbarComponent";
 import { useEffect, useState } from "react";
 import userIcon from "/siteimages/user.png";
@@ -8,6 +10,7 @@ import React from "react";
 import 'react-responsive-modal/styles.css';
 import trashIcon from "./assets/images/trash.png";
 
+//define structure of album data from backend API
 type Album = {
   albumid: number;
   hasImage: boolean;
@@ -20,17 +23,13 @@ type Album = {
 
 function ProfilePage() {
   const [profileAlbums, setProfileAlbums] = useState<Album[]>([]); //empty array to store albums added to profile
-  const [open, setOpen] = useState<number | null>(null);
-  // const [open, setOpen] = useState(false);
-
-  // const onOpenModal = () => setOpen(true);
-  // const onCloseModal = () => setOpen(false);
-  const [note, setNote] = useState('');
+  const [open, setOpen] = useState<number | null>(null); // control which modal is open based on albumn id
+  const [note, setNote] = useState('');// stores review note
 
   const myRef = React.useRef(null);
 
 
-  const loadProfileAlbums = async () => { //get albums 
+  const loadProfileAlbums = async () => { //get albums from backend
     try {
       const res = await fetch("http://localhost:8080/api/profile/albums");
       const data = await res.json();
@@ -41,7 +40,7 @@ function ProfilePage() {
     }
   };
 
-  const deleteAlbum = async (id: number) => { // delete album from profile with 
+  const deleteAlbum = async (id: number) => { // delete album from profile  
     try {
       await fetch("http://localhost:8080/api/profile/albums/" + id, {
         method: "DELETE",
@@ -53,6 +52,7 @@ function ProfilePage() {
     }  
   };
 
+  //Rate albumn functions for user rating and reviews
   const rateAlbum = async (id: number) => {
   const answer = window.prompt("Rate the Album: 1, 2, 3, 4, or 5");
   const nanswer = Number(answer);
@@ -226,12 +226,9 @@ const myReview = async (id: number) => {
         <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 py-8'>
           {profileAlbums.map(album => (
             <div key={album.albumid} className='w-full bg-white flex justify-center flex-col p-4'>
-              
                   <div className="text-right">
                   <button> <img src={trashIcon} alt="my image" onClick={() => deleteAlbum(album.albumid)} className="w-4 hover:scale-105 transition duration-300 ease-in-out "/></button>
                   </div>
-
-
               <img src={`http://localhost:8080${album.Image}`} alt={album.album} className="w-full h-full text-center object-cover" />
               <br></br>
               <h3 className='font-bold text-2xl text-center'> {album.album} </h3>

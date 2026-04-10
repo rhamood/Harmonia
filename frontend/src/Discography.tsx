@@ -1,3 +1,5 @@
+// Discography page - displays all albums in the database and allows users to add albums to their personal profile page
+
 import { useState, useEffect } from 'react';
 import NavbarComponent from "./NavbarComponent";
 

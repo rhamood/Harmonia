@@ -1,3 +1,5 @@
+// FAQ page - displays frequently asked questions and answers about the application
+
 import './App.css'
 import { useEffect, useState } from 'react';
 import icon from './assets/images/siteIcon.png'
@@ -9,17 +11,18 @@ type Dev = {
     image: string;
 }
 
+
 function FAQPage() {
-
-
     return (
         <>
+            {/* Main container with background color and navigation */}
             <div className='bg-[#D496BB] min-h-full'>
                 <NavbarComponent />
                 <div className='px-32 flex justify-center'>
                     <h1 className='text-7xl font-bold text-center mt-8 text-white'> Frequently Asked Questions </h1>
                 </div>
                 <br></br>
+                {/* Container for all FAQ questiosn and answers */}
                 <div className='p-4'>
                     <div className='bg-white p-2 text-[#934774]'>
                     <h2> Question:<br></br> How do I recover a deleted album? </h2>

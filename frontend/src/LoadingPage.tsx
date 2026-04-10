@@ -1,6 +1,9 @@
+//Loading Page - loading screen with a spinning vinyl record and progess bar
+
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
+// floating music notes in the background of the loading screen
 function FloatingNote({ note, style }: { note: string; style: React.CSSProperties }) {
   return (
     <span
@@ -14,11 +17,11 @@ function FloatingNote({ note, style }: { note: string; style: React.CSSPropertie
 
 function LoadingPage() {
   const navigate = useNavigate();
-  const [progress, setProgress] = useState(0);
-  const [fadeOut, setFadeOut] = useState(false);
+  const [progress, setProgress] = useState(0); // tracks loading progress (0-100%)
+  const [fadeOut, setFadeOut] = useState(false); // controles fade-out animation before going to home page
 
   useEffect(() => {
-    const interval = setInterval(() => {
+    const interval = setInterval(() => { // gradually increase progress bar
       setProgress((prev) => {
         if (prev >= 100) {
           clearInterval(interval);
@@ -28,9 +31,10 @@ function LoadingPage() {
       });
     }, 40);
 
-    const fadeTimer = setTimeout(() => setFadeOut(true), 2200);
-    const navTimer = setTimeout(() => navigate("/home"), 2800);
+    const fadeTimer = setTimeout(() => setFadeOut(true), 2200); // fadeout animation
+    const navTimer = setTimeout(() => navigate("/home"), 2800); // navigate to home page after loading is complete
 
+    //clean up timers 
     return () => {
       clearInterval(interval);
       clearTimeout(fadeTimer);
@@ -38,6 +42,7 @@ function LoadingPage() {
     };
   }, [navigate]);
 
+  //list of floating music notes with positions and animation delays
   const floatingNotes = [
     { note: "♫", style: { top: "10%", left: "8%", animationDelay: "0s" } },
     { note: "♪", style: { top: "20%", right: "10%", animationDelay: "0.3s" } },

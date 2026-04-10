@@ -1,3 +1,6 @@
+// Main App - main app component that sets up routing for the application
+
+// imports routing components from react-router and all page components 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import HomePage from "./HomePage";
 import DiscographyPage from "./Discography";
@@ -8,6 +11,7 @@ import FAQPage from "./FAQ";
 import HelpDesk from "./HelpDesk";
 import LoadingPage from "./LoadingPage";
 
+//main app component that sets up routing for between all pages in the application
 function App() {
   return (
     <BrowserRouter>
