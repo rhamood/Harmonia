@@ -25,7 +25,7 @@ function ProfilePage() {
   const [profileAlbums, setProfileAlbums] = useState<Album[]>([]); //empty array to store albums added to profile
   const [open, setOpen] = useState<number | null>(null); // control which modal is open based on albumn id
   const [note, setNote] = useState('');// stores review note
-
+  const [selectedRating, setSelectedRating] = useState<number>(0);
   const myRef = React.useRef(null);
 
 
@@ -157,6 +157,12 @@ function ProfilePage() {
     album.rating = '📀📀📀📀📀';
     setProfileAlbums([...profileAlbums]);
   };
+  // interactive UI - stars are highlighted based on user selectection
+  const getRatingClass = (num: number) => {
+    if (selectedRating === 0) return "text-gray-400";
+    if (num <= selectedRating) return "text-yellow-400 scale-110";
+    return "text-gray-400 opacity-50";
+  };
 
 
   const removeRating = async (id: number) => {
@@ -246,19 +252,25 @@ function ProfilePage() {
               <div className="flex flex-wrap items-center justify-center">
                 {/* rate album that pops a modal when clicked */}
                 <div className="text-center">
-                  <button onClick={() => setOpen(album.albumid)} className="w-40 p-4 font-bold mt-4 text-white border border-white bg-pink-400 hover:scale-105 transition duration-300 ease-in-out text-center">Rate Album</button>
+                  <button onClick={() => {setSelectedRating(0); setOpen(album.albumid)}} className="w-40 p-4 font-bold mt-4 text-white border border-white bg-pink-400 hover:scale-105 transition duration-300 ease-in-out text-center">Rate Album</button>
                 </div>
                 <Modal open={open === album.albumid} onClose={() => setOpen(null)} center>
                   <div className="w-85 h-55 text-center ">
-
                     <h2> How many Golden CDs do you rate it?</h2>
                     <br></br>
                     <div className="text-4xl">
-                      <button onClick={() => star1(album.albumid)}> 📀 </button>
-                      <button onClick={() => star2(album.albumid)}> 📀 </button>
-                      <button onClick={() => star3(album.albumid)}> 📀 </button>
-                      <button onClick={() => star4(album.albumid)}> 📀 </button>
-                      <button onClick={() => star5(album.albumid)}> 📀 </button>
+                      {[1, 2, 3, 4, 5].map((num) => (
+                      <button key={num} onClick={() => {
+                          setSelectedRating(num);
+                          if (num === 1) star1(album.albumid);
+                          if (num === 2) star2(album.albumid);
+                          if (num === 3) star3(album.albumid);
+                          if (num === 4) star4(album.albumid);
+                          if (num === 5) star5(album.albumid);
+                        }}
+                        className={`transition ${getRatingClass(num)}`}>📀
+                      </button> 
+                    ))}
                     </div>
                     <br></br>
                     <h2> Would you like to also add a review?</h2>
@@ -270,6 +282,7 @@ function ProfilePage() {
                         placeholder="My Review"
                         value={note}
                         onChange={(e) => setNote(e.target.value)}
+                        // so user can submit review by pressing 'Enter' on keyboard as well as the Enter button on form 
                         onKeyDown={(e) => {
                           if (e.key === 'Enter') {
                             e.preventDefault();
