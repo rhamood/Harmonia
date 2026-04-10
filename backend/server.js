@@ -6,7 +6,7 @@ import mongoose from "mongoose";
 import Album from "./models/Album.js";
 import http from 'http';
 import { Server } from "socket.io";
-
+import Game from "./models/Game.js";
 
 // initialize express app and create express object
 const app = express(); 
