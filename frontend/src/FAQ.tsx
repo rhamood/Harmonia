@@ -47,15 +47,16 @@ function FAQPage() {
                     <br></br>
 
                     <div className='bg-white p-2 text-[#934774]'>
-                    <h2> Question:<br></br> question 4 </h2>
-                    <h3> Answer: <br></br> answer 4 <br></br><br></br>
+                    <h2> Question:<br></br> Can I make multiple accounts? </h2>
+                    <h3> Answer: <br></br> As long as each account has its own email, you can make as many accounts as you desire. <br></br>
                     </h3>
                     </div>
                     <br></br>
 
                     <div className='bg-white p-2 text-[#934774]'>
-                    <h2> Question:<br></br> question 5 </h2>
-                    <h3> Answer: <br></br> answer 5 <br></br><br></br>
+                    <h2> Question:<br></br> Does the remove rating remove the ability to rate an album? </h2>
+                    <h3> Answer: <br></br> No do not worry, the remove rating just clears the previous album rating. 
+                    You can always add a new one with the Rate Album button. <br></br>
                     </h3>
                     </div>
                     <br></br>
