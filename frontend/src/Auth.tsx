@@ -73,7 +73,14 @@ const AuthPage = ({ onSuccess, onClose }: AuthProps) => {
           const result = await res.json();
           setMessage(result.message); // show server response (e.g. "Registered successfully!")
           setSuccess(res.ok);
-          if (res.ok) setData(initialForm); // reset form on success
+          if (res.ok){
+            localStorage.setItem("user", JSON.stringify({
+              name: data.name,
+              email: data.email
+            }));
+            setData(initialForm); // reset form on success
+            navigate("/loading");
+          } 
 
       }else{
           // // --- LOGIN ---

@@ -82,7 +82,6 @@ function LoadingPage() {
         </div>
         <p className="text-white/60 text-xs tracking-widest">{progress}%</p>
       </div>
-
     </div>
   );
 }
