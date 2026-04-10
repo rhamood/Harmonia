@@ -3,18 +3,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-// floating music notes in the background of the loading screen
-function FloatingNote({ note, style }: { note: string; style: React.CSSProperties }) {
-  return (
-    <span
-      className="absolute text-white/40 text-3xl select-none pointer-events-none animate-bounce"
-      style={style}
-    >
-      {note}
-    </span>
-  );
-}
-
 function LoadingPage() {
   const navigate = useNavigate();
   const [progress, setProgress] = useState(0); // tracks loading progress (0-100%)
@@ -41,16 +29,6 @@ function LoadingPage() {
       clearTimeout(navTimer);
     };
   }, [navigate]);
-
-  //list of floating music notes with positions and animation delays
-  const floatingNotes = [
-    { note: "♫", style: { top: "10%", left: "8%", animationDelay: "0s" } },
-    { note: "♪", style: { top: "20%", right: "10%", animationDelay: "0.3s" } },
-    { note: "♬", style: { bottom: "25%", left: "12%", animationDelay: "0.6s" } },
-    { note: "♩", style: { top: "55%", right: "8%", animationDelay: "0.9s" } },
-    { note: "♭", style: { bottom: "12%", right: "18%", animationDelay: "0.2s" } },
-    { note: "♮", style: { top: "38%", left: "5%", animationDelay: "0.5s" } },
-  ];
 
   return (
     <div
