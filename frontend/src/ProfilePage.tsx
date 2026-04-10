@@ -6,6 +6,9 @@ import 'reactjs-popup/dist/index.css';
 import { Modal } from 'react-responsive-modal';
 import React from "react";
 import 'react-responsive-modal/styles.css';
+import trashIcon from "./assets/images/trash.png";
+
+
 
 type Album = {
   albumid: number;
@@ -20,11 +23,11 @@ type Album = {
 
 function ProfilePage() {
   const [profileAlbums, setProfileAlbums] = useState<Album[]>([]); //empty array to store albums added to profile
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState<number | null>(null);
+  // const [open, setOpen] = useState(false);
 
-  const onOpenModal = () => setOpen(true);
-  const onCloseModal = () => setOpen(false);
-
+  // const onOpenModal = () => setOpen(true);
+  // const onCloseModal = () => setOpen(false);
   const [note, setNote] = useState('');
 
   const myRef = React.useRef(null);
@@ -159,6 +162,23 @@ function ProfilePage() {
 };
 
 
+  const removeRating = async (id: number) => {
+  // save to backend
+  await fetch("http://localhost:8080/api/profile/albums/" + id + "/rating", {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ rating: '', review:'' }),
+  });
+  // update UI
+  const album = profileAlbums.find(a => a.albumid === id);
+  if (!album) return;
+
+  album.rating = '';
+  album.review = '';
+  setProfileAlbums([...profileAlbums]);
+};
+
+
 //////////////////////////////////////////////////////////////////////////////////////////////////////////// review
 const myReview = async (id: number) => {
 
@@ -208,20 +228,28 @@ const myReview = async (id: number) => {
       <div className='px-32'>
         <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 py-8'>
           {profileAlbums.map(album => (
-            <div key={album.albumid} className='w-full bg-white flex justify-center flex-col items-center p-4'>
-              <img src={`http://localhost:8080${album.Image}`} alt={album.album} className="w-full h-full object-cover" />
+            <div key={album.albumid} className='w-full bg-white flex justify-center flex-col p-4'>
+              
+                  <div className="text-right">
+                  <button> <img src={trashIcon} alt="my image" onClick={() => deleteAlbum(album.albumid)} className="w-4 hover:scale-105 transition duration-300 ease-in-out "/></button>
+                  </div>
+
+
+              <img src={`http://localhost:8080${album.Image}`} alt={album.album} className="w-full h-full text-center object-cover" />
               <br></br>
               <h3 className='font-bold text-2xl text-center'> {album.album} </h3>
               <br></br>
-              <h3 className='font-bold text-1xl'> {album.artist}  </h3>
+              <h3 className='font-bold text-1xl text-center'> {album.artist}  </h3>
               <br></br>
-              <h2 className='font-bold text-2xl'> {album.rating} </h2>
-              <h2 className='font-bold text-1xl text-sm text-yellow-500'> {album.review} </h2>
+              <h2 className='font-bold text-2xl text-center'> {album.rating} </h2>
+              <h2 className='font-bold text-1xl text-sm text-center text-yellow-500'> {album.review} </h2>
 
         
       <div>
-      <button onClick={onOpenModal} className="w-50 p-4 font-bold mt-4 text-white border border-white bg-pink-400 hover:scale-105 transition duration-300 ease-in-out">Rate Album</button>
-      <Modal open={open} onClose={onCloseModal} center>
+        <div className="text-center">
+      <button onClick={() => setOpen(album.albumid)} className="w-50 p-4 font-bold mt-4 text-white border border-white bg-pink-400 hover:scale-105 transition duration-300 ease-in-out text-center">Rate Album</button>
+      </div>
+      <Modal open={open === album.albumid} onClose={() => setOpen(null)} center>
         <div className="w-85 h-55 text-center ">
           
                   <h2> How many Golden CDs do you rate it?</h2>
@@ -251,8 +279,9 @@ const myReview = async (id: number) => {
       </Modal>
       </div>
 
-    <button onClick={() => deleteAlbum(album.albumid)} className="w-50 p-4 font-bold mt-4 text-white border border-white bg-gray-400 hover:scale-105 transition duration-300 ease-in-out">Remove Album</button>
-
+    <div className="text-center">
+    <button onClick={() => removeRating(album.albumid)} className="w-50 p-4 font-bold mt-4 text-white border border-white bg-gray-400 hover:scale-105 transition duration-300 ease-in-out text-center">Remove Rating</button>
+    </div>
 
             </div>
           ))}

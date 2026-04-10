@@ -1,5 +1,5 @@
 import NavbarComponent from "./NavbarComponent";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 interface Question {
     question: string;
@@ -7,64 +7,42 @@ interface Question {
     answer: string;
 }
 
-const questions: Question[] = [
-    {
-        question: "What year did Lana Del Rey release her breakthrough major-label debut, Born to Die?",
-        options: ["2010", "2012", "2014", "2016"],
-        answer: "2012"
-    },
-    {
-        question: "Which Taylor Swift album is the song \"Anti-Hero\" the lead single for?",
-        options: ["Lover", "Folklore", "Evermore", "Midnights"],
-        answer: "Midnights"
-    },
-    {
-        question: "Which Taylor Swift album features the hit single \"Shake It Off\"?",
-        options: ["Red", "1989", "Reputation", "Speak Now"],
-        answer: "1989"
-    },
-    {
-        question: "David Bowie's 28th and final studio album, released on his 69th birthday in 2016, is titled what?",
-        options: ["Blackstar", "Stardust", "Ziggy Stardust", "Heroes"],
-        answer: "Blackstar"
-    },
-    {
-        question: "What is the title of Yebba's debut studio album, released in 2021 as a tribute to her mother?",
-        options: ["Dawn", "Dusk", "Sunrise", "Sunset"],
-        answer: "Dawn"
-    },
-    {
-        question: "What is the title of Frank Ocean's debut studio album Channel Orange?",
-        options: ["2009", "2010", "2011", "2012"],
-        answer: "2012"
-    },
-    {
-        question: "In what year did Drake release Grammy winning album, Take Care?",
-        options: ["2010", "2011", "2012", "2013"],
-        answer: "2011"
-    },
-    {
-        question: "Central Cee's breakout 2022 mixtape, is titled what?",
-        options: ["17", "20", "23", "26"],
-        answer: "23"
-    },
-    {
-        question: "In what year did Doja Cat release Planet Her",
-        options: ["2020", "2021", "2022", "2023"],
-        answer: "2021"
-    },
-    {
-        question: "In what year did Billie Ellish release her debut album, When We All Fall Asleep, Where Do We Go?",
-        options: ["2017", "2018", "2019", "2020"],
-        answer: "2019"
-    }
-
-]
 function GamePage() {
+    // const [currentIndex, setCurrentIndex] = useState(0);
+    // const [score, setScore] = useState(1);
+    // // const [finished, setFinished] = useState(false);
+    // const currentQuestion = questions[currentIndex];
+    const [questions, setQuestions] = useState<Question[]>([]);
     const [currentIndex, setCurrentIndex] = useState(0);
-    const [score, setScore] = useState(1);
-    // const [finished, setFinished] = useState(false);
+    const [score, setScore] = useState(0);
+
+    useEffect(() => {
+    async function loadQuestions() {
+        try {
+            const res = await fetch("http://localhost:8080/api/game");
+            console.log("Response status:", res.status);
+            const data = await res.json();
+            console.log("Questions data:", data);
+            setQuestions(data);
+        } catch (err) {
+            console.error("Error loading questions:", err);
+        }
+    }
+    loadQuestions();
+}, []);
+
     const currentQuestion = questions[currentIndex];
+    if (questions.length === 0 || !currentQuestion) {
+        return (
+            <div className="bg-[#D496BB] min-h-screen">
+                <NavbarComponent />
+                <div className="flex flex-col items-center gap-6 px-4 sm:px-8 py-6">
+                    <h1 className="text-6xl font-bold text-center mt-8 text-white">Game Page</h1>
+                    <p className="text-white text-xl">Loading questions...</p>
+                </div>
+            </div>
+        );
+    }
 
     const handleAnswer = (index: number) => {
         const isCorrect = currentQuestion.options[index] === currentQuestion.answer;
