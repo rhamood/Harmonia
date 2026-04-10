@@ -12,8 +12,8 @@ interface AuthProps {
     onClose?: () => void;
 }
 
-//const AuthPage = ({ onSuccess, onClose }: AuthProps) => {
-const AuthPage = (props: AuthProps) => {
+const AuthPage = ({ onSuccess, onClose }: AuthProps) => {
+//const AuthPage = (props: AuthProps) => {
     //false = Register, true = Login
     const [isLogin, setIsLogin] = useState(true);
     //feedback message
@@ -34,11 +34,11 @@ const AuthPage = (props: AuthProps) => {
   };
 
     // clears the form and message when switching between Register and Login tabs
-    // const handleToggle = () => {
-    //     setIsLogin(!isLogin);
-    //     setMessage("");
-    //     setData(initialForm);
-    // };
+    const handleToggle = () => {
+        setIsLogin(!isLogin);
+        setMessage("");
+        setData(initialForm);
+    };
 
     // handles form submission for Register and Login
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -62,7 +62,7 @@ const AuthPage = (props: AuthProps) => {
         }
     
         // send new user data to backend
-        const res = await fetch("http://localhost:3000/api/register", {
+        const res = await fetch("http://localhost:8080/api/register", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(data),
@@ -74,40 +74,40 @@ const AuthPage = (props: AuthProps) => {
         if (res.ok) setData(initialForm); // reset form on success
 
     } else {
-        // --- LOGIN ---
-        // make sure email and password are filled
-        if (!data.email || !data.password) {
-            setMessage("Please fill in all fields.");
-            setSuccess(false);
-            return;
-        } 
-        if (data.email === "janedoe@gmail.com" && data.password === "12345") {
-            const defaultUser = {
-                name: "Jane Doe",
-                email: "janedoe@gmail.com",
-            };
-            localStorage.setItem("loggedInUser", JSON.stringify(defaultUser));
-            window.location.href = "/profile";
-            return;
-        } else {
-              setMessage("Invalid credentials. Email: janedoe@gmail.com and Password: 12345");
-              setSuccess(false);
-              return;
+        // // --- LOGIN ---
+        // // make sure email and password are filled
+        // if (!data.email || !data.password) {
+        //     setMessage("Please fill in all fields.");
+        //     setSuccess(false);
+        //     return;
+        // } 
+        // if (data.email === "janedoe@gmail.com" && data.password === "12345") {
+        //     const defaultUser = {
+        //         name: "Jane Doe",
+        //         email: "janedoe@gmail.com",
+        //     };
+        //     localStorage.setItem("loggedInUser", JSON.stringify(defaultUser));
+        //     window.location.href = "/profile";
+        //     return;
+        // } else {
+        //       setMessage("Invalid credentials. Email: janedoe@gmail.com and Password: 12345");
+        //       setSuccess(false);
+        //       return;
+        // }
+        // send login credentials to backend
+        const res = await fetch("http://localhost:8080/api/login", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ email: data.email, password: data.password }),
+        });
+
+        const result = await res.json();
+        setMessage(result.message);
+        setSuccess(res.ok);
+
+        if (res.ok) {
+           onSuccess?.(result.user);
         }
-        // // send login credentials to backend
-        // const res = await fetch("http://localhost:3000/api/login", {
-        //     method: "POST",
-        //     headers: { "Content-Type": "application/json" },
-        //     body: JSON.stringify({ email: data.email, password: data.password }),
-        // });
-
-        // const result = await res.json();
-        // setMessage(result.message);
-        // setSuccess(res.ok);
-
-        //if (res.ok) {
-        //    onSuccess?.(result.user);
-        //}
     }
   };
 
@@ -123,7 +123,7 @@ const AuthPage = (props: AuthProps) => {
         <div className="bg-white/30 backdrop-blur-md border border-white/50 rounded-3xl shadow-2xl p-10">
 
           {/* Toggle tabs — clicking sets isLogin true or false directly */}
-          {/* <div className="flex bg-white/20 rounded-2xl p-1 mb-8">
+          <div className="flex bg-white/20 rounded-2xl p-1 mb-8">
             <button
               type="button"
               onClick={() => { setIsLogin(false); setMessage(""); setData(initialForm); }}  // switch to Register and clear form
@@ -142,7 +142,7 @@ const AuthPage = (props: AuthProps) => {
             >
               Login
             </button>
-          </div> */}
+          </div>
 
           {/* Header — changes text based on active tab */}
           <div className="text-center mb-8">
