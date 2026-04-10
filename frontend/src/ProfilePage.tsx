@@ -273,7 +273,7 @@ const myReview = async (id: number) => {
             onChange={(e) => setNote(e.target.value)}
             required 
           />
-          <button type="submit">Enter</button>
+          <button className="pl-4" type="submit"> Enter</button>
         </form>
          </div>
       </Modal>
