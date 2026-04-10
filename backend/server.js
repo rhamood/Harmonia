@@ -166,13 +166,9 @@ async function addGameQuestionsToMongoDB(){
 }
 
 // function to add test albums and game questions to db - put into function to allow for async/await to avoid adding both data at the same time
-// async function fillDatabaseWithTestData() {
-//   await addTestAlbumsToMongoDB();
-//   await addGameQuestionsToMongoDB();
-// }
-// fillDatabaseWithTestData();
 await addTestAlbumsToMongoDB();
 await addGameQuestionsToMongoDB();
+
 // team member data for about the developers section
 let team_members = [
     {name: "Theresa Killiam", image: "/teamPics/Theresa.png"},
@@ -316,14 +312,19 @@ app.post('/api/login', (req, res) => {
   });
 });
 
-io.on('connection', (socket) => {
-  console.log( socket.id + " connected" );
 
+// socket.io connection handling for help page
+io.on('connection', (socket) => {
+  //runs when user connects to the socket
+  console.log( socket.id + " connected" );
+  //listens for a message from the frontend (event name is 'question')
   socket.on('question', (msg) => {
     console.log("User asked:", msg);
-
+    //default if no match is made
     let reply = "Try checking FAQ.";
 
+
+    // conditions to check message for certain keywords and respond with answer
     if (msg.toLowerCase().includes("profile")) {
       reply = "Go to your profile page to edit your info!";
     }
@@ -343,15 +344,13 @@ io.on('connection', (socket) => {
     else if (msg.toLowerCase().includes("bye")) {
       reply = "Goodbye!";
     }
-
+    //send response back to frontend (event name is 'answer')
     socket.emit('answer', reply);
   });
-
+  //runs when user disconnects from the socket
   socket.on('disconnect', () => {
     console.log( socket.id + " disconnected" );
   });
 });
 
 server.listen(PORT, () => { console.log("Server started on port:" + PORT)}); // start server and listen on specified port
-
-// app.listen(PORT, () => { console.log("Server started on port:" + PORT)}); // start server and listen on specified port

@@ -41,7 +41,31 @@ const AuthPage = ({ onSuccess, onClose }: AuthProps) => {
         setMessage("");
         setData(initialForm);
     };
+    const password = data.password;
+    //defining password criteria 
+    const hasUpper = /[A-Z]/.test(password);
+    const hasLower = /[a-z]/.test(password);
+    const hasNumber = /[0-9]/.test(password);
+    const hasSpecial = /[^A-Za-z0-9]/.test(password);
+    //set default strength to weak and then check to see if it meets criteria for good or strong
+    let strengthText = "Weak";
+    let strengthColor = "bg-red-500";
+    let strengthWidth = "w-1/3";
+    //we define strong first as its more strict (has 8+ characters, lower, upper, number and special charater)
+    if (password.length >= 8 && hasUpper && hasLower && hasNumber && hasSpecial) {
+      strengthText = "Strong";
+      strengthColor = "bg-green-500";
+      strengthWidth = "w-full";
+    }
 
+    // define good as at least 5 chacter and has upper, lower and number but no special character
+    else if (
+      password.length >= 5 && hasUpper && hasLower && hasNumber) {
+      strengthText = "Good";
+      strengthColor = "bg-yellow-400";
+      strengthWidth = "w-2/3";
+    }
+    
     // handles form submission for Register and Login
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
       event.preventDefault(); // stop page from refreshing
@@ -55,13 +79,29 @@ const AuthPage = ({ onSuccess, onClose }: AuthProps) => {
               setSuccess(false);
               return;
           }
-      
+          
+          //makes sure password does not contain user's name (added password security) and gives feedback
+          if (data.password.toLowerCase().includes(data.name.toLowerCase())) {
+              setMessage("Password should not contain your name.");
+              setSuccess(false);
+              return;
+          }
+          const passwordCriteria = /^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[^A-Za-z0-9]).{8,}$/;
+          //makes sure password meets criteria of a strong password and gives feedback if it does not
+          if (!passwordCriteria.test(data.password)) {
+              setMessage("Password must be at least 8 characters long and include at least one uppercase letter, one lowercase letter, one number and a special character.");
+              setSuccess(false);
+              return;
+          }
+
           // make sure passwords match before sending to server
           if (data.password !== data.confirmPassword) {
               setMessage("Passwords do not match.");
               setSuccess(false);
               return;
           }
+
+
       
           // send new user data to backend
           const res = await fetch("http://localhost:8080/api/register", {
@@ -205,6 +245,20 @@ const AuthPage = ({ onSuccess, onClose }: AuthProps) => {
                 onChange={handleInputChange}
                 className="bg-white/80 border border-pink-200 rounded-xl px-4 py-3 text-pink-900 placeholder-pink-300 focus:outline-none focus:ring-2 focus:ring-pink-400 focus:bg-white transition"
               />
+              {!isLogin && data.password && (
+                  <div className="mt-2">
+                    <div className="flex justify-between text-xs mb-1">
+                      <span className="text-white/80">Password strength</span>
+                      <span className="text-white font-medium">{strengthText}</span>
+                    </div>
+
+                    <div className="w-full h-2 bg-white/30 rounded-full overflow-hidden">
+                      <div
+                        className={`h-2 rounded-full transition-all duration-300 ${strengthColor} ${strengthWidth}`}
+                      ></div>
+                    </div>
+                  </div>
+                )}
             </div>
 
             {/* Confirm Password — only shown on Register tab */}
@@ -224,8 +278,8 @@ const AuthPage = ({ onSuccess, onClose }: AuthProps) => {
 
             {/* Feedback message — only renders if message is not empty */}
             {message && (
-              <p className={`text-sm text-center font-semibold px-3 py-2 rounded-xl ${
-                success ? "bg-green-100/50 text-green-100" : "bg-red-100/30 text-white"
+              <p className={`text-sm text-center px-3 py-2 rounded-xl ${
+                success ? "bg-green-100/50 text-green-100" : "bg-pink-400 text-white"
               }`}>
                 {message}
               </p>
