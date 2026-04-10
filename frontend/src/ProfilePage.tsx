@@ -6,6 +6,9 @@ import 'reactjs-popup/dist/index.css';
 import { Modal } from 'react-responsive-modal';
 import React from "react";
 import 'react-responsive-modal/styles.css';
+import trashIcon from "./assets/images/trash.png";
+
+
 
 type Album = {
   albumid: number;
@@ -228,7 +231,7 @@ const myReview = async (id: number) => {
             <div key={album.albumid} className='w-full bg-white flex justify-center flex-col p-4'>
               
                   <div className="text-right">
-                  <button onClick={() => deleteAlbum(album.albumid)} className="w-4 p-4 font-bold mt-4 text-center text-white border border-white bg-gray-400 hover:scale-105 transition duration-300 ease-in-out text-center">x</button>
+                  <button> <img src={trashIcon} alt="my image" onClick={() => deleteAlbum(album.albumid)} className="w-4 hover:scale-105 transition duration-300 ease-in-out "/></button>
                   </div>
 
 
