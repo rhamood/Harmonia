@@ -4,8 +4,9 @@ import cors from 'cors';
 import { fileURLToPath } from 'url';
 import mongoose from "mongoose";
 import Album from "./models/Album.js";
-// const mongoose = require("mongoose");
-// const Album = require("./models/Album");
+import http from 'http';
+import { Server } from "socket.io";
+
 
 const app = express(); // create express object, initialize app
 const PORT = 8080;
@@ -14,6 +15,14 @@ const DATABASE_PORT = 27017;
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+
+const server = http.createServer(app);
+const io = new Server(server, {
+  cors: {
+    origin: "http://localhost:5173",
+    methods: ["GET", "POST", "PUT", "DELETE"]
+  }
+});
 
 app.use(cors({ origin: 'http://localhost:5173' })); // allow CORS for the frontend running on port 5173
 app.use(express.json()); 
@@ -189,4 +198,42 @@ app.post('/api/login', (req, res) => {
   });
 });
 
-app.listen(PORT, () => { console.log("Server started on port:" + PORT)}); // start server and listen on specified port
+io.on('connection', (socket) => {
+  console.log( socket.id + " connected" );
+
+  socket.on('question', (msg) => {
+    console.log("User asked:", msg);
+
+    let reply = "Try checking FAQ.";
+
+    if (msg.toLowerCase().includes("profile")) {
+      reply = "Go to your profile page to edit your info!";
+    }
+
+    else if (msg.toLowerCase().includes("discover") || msg.toLowerCase().includes("discography") || msg.toLowerCase().includes("music")) {
+      reply = "Check out the discography page to find new albums!";
+    }
+
+    else if (msg.toLowerCase().includes("help") || msg.toLowerCase().includes("support")) {
+      reply = "Email us at ask@harmonia.com for support!";
+    }
+
+    else if (msg.toLowerCase().includes("hello") || msg.toLowerCase().includes("hi")) {
+      reply = "Hello! How can I assist you today?";
+    }
+
+    else if (msg.toLowerCase().includes("bye")) {
+      reply = "Goodbye!";
+    }
+
+    socket.emit('answer', reply);
+  });
+
+  socket.on('disconnect', () => {
+    console.log( socket.id + " disconnected" );
+  });
+});
+
+server.listen(PORT, () => { console.log("Server started on port:" + PORT)}); // start server and listen on specified port
+
+// app.listen(PORT, () => { console.log("Server started on port:" + PORT)}); // start server and listen on specified port
