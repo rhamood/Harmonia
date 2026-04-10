@@ -75,9 +75,9 @@ function DiscographyPage() {
               <div key={album.albumid} className='w-full bg-white flex justify-center flex-col items-center p-4'>
                 <img src={album.Image} alt={album.album} className="w-full h-full object-cover" />
                 <br></br>
-                <h3 className='font-bold text-2xl text-center'> {album.album} </h3>
+                <h3 className='font-bold text-xl lg:text-2xl text-center'> {album.album} </h3>
                 <br></br>
-                <h3 className='font-bold text-xl'> {album.artist} </h3>
+                <h3 className='font-bold text-md lg:text-xl'> {album.artist} </h3>
                 {/* on click to add albumn to profile, button changes to ADDED and changed to grey to indicate it was added. fixed width so it stays consistent*/}
                 <button
                   onClick={() => addAlbumToProfile(album.albumid)} className={`w-40 p-4 font-bold mt-4 text-white border border-white hover:scale-105 transition duration-300 ease-in-out ${profileAlbums.includes(album.albumid) ? "bg-gray-400" : "bg-pink-400"}`}>

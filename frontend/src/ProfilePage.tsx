@@ -34,7 +34,7 @@ function ProfilePage() {
       const res = await fetch("http://localhost:8080/api/profile/albums");
       const data = await res.json();
       setProfileAlbums(data); // update with albums added to profile
-    } 
+    }
     catch (err) {
       console.error(err);
     }
@@ -46,157 +46,157 @@ function ProfilePage() {
         method: "DELETE",
       });
       setProfileAlbums(prev => prev.filter(album => album.albumid !== id)); // remove albumn from state to update page
-    } 
+    }
     catch (err) {
       console.error(err);
-    }  
+    }
   };
 
   //Rate albumn functions for user rating and reviews
   const rateAlbum = async (id: number) => {
-  const answer = window.prompt("Rate the Album: 1, 2, 3, 4, or 5");
-  const nanswer = Number(answer);
+    const answer = window.prompt("Rate the Album: 1, 2, 3, 4, or 5");
+    const nanswer = Number(answer);
 
-  if (!nanswer || nanswer < 1 || nanswer > 5) return;
+    if (!nanswer || nanswer < 1 || nanswer > 5) return;
 
-  let theRating = "";
-  for (let i = 0; i < nanswer; i++) {
-    theRating += "📀";
-  }
+    let theRating = "";
+    for (let i = 0; i < nanswer; i++) {
+      theRating += "📀";
+    }
 
-  const answerReview = window.prompt("Would you like to also add a review?");
-  if(answerReview == null){
-    return;
-  } 
+    const answerReview = window.prompt("Would you like to also add a review?");
+    if (answerReview == null) {
+      return;
+    }
 
-  // save to backend
-  await fetch("http://localhost:8080/api/profile/albums/" + id + "/rating", {
-    method: "PUT",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ rating: theRating , review: answerReview}),
-  });
+    // save to backend
+    await fetch("http://localhost:8080/api/profile/albums/" + id + "/rating", {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ rating: theRating, review: answerReview }),
+    });
 
-  // update UI
-  const album = profileAlbums.find(a => a.albumid === id);
-  if (!album) return;
+    // update UI
+    const album = profileAlbums.find(a => a.albumid === id);
+    if (!album) return;
 
-  album.rating = theRating;
-  album.review = answerReview;
-  setProfileAlbums([...profileAlbums]);
-};
+    album.rating = theRating;
+    album.review = answerReview;
+    setProfileAlbums([...profileAlbums]);
+  };
 
 
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// ratings
+  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// ratings
   const star1 = async (id: number) => {
-  // save to backend
-  await fetch("http://localhost:8080/api/profile/albums/" + id + "/rating", {
-    method: "PUT",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ rating: '📀' }),
-  });
-  // update UI
-  const album = profileAlbums.find(a => a.albumid === id);
-  if (!album) return;
+    // save to backend
+    await fetch("http://localhost:8080/api/profile/albums/" + id + "/rating", {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ rating: '📀' }),
+    });
+    // update UI
+    const album = profileAlbums.find(a => a.albumid === id);
+    if (!album) return;
 
-  album.rating = '📀';
-  setProfileAlbums([...profileAlbums]);
-};
+    album.rating = '📀';
+    setProfileAlbums([...profileAlbums]);
+  };
   const star2 = async (id: number) => {
-  // save to backend
-  await fetch("http://localhost:8080/api/profile/albums/" + id + "/rating", {
-    method: "PUT",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ rating: '📀📀' }),
-  });
-  // update UI
-  const album = profileAlbums.find(a => a.albumid === id);
-  if (!album) return;
+    // save to backend
+    await fetch("http://localhost:8080/api/profile/albums/" + id + "/rating", {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ rating: '📀📀' }),
+    });
+    // update UI
+    const album = profileAlbums.find(a => a.albumid === id);
+    if (!album) return;
 
-  album.rating = '📀📀';
-  setProfileAlbums([...profileAlbums]);
-};
+    album.rating = '📀📀';
+    setProfileAlbums([...profileAlbums]);
+  };
   const star3 = async (id: number) => {
-  // save to backend
-  await fetch("http://localhost:8080/api/profile/albums/" + id + "/rating", {
-    method: "PUT",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ rating: '📀📀📀' }),
-  });
-  // update UI
-  const album = profileAlbums.find(a => a.albumid === id);
-  if (!album) return;
+    // save to backend
+    await fetch("http://localhost:8080/api/profile/albums/" + id + "/rating", {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ rating: '📀📀📀' }),
+    });
+    // update UI
+    const album = profileAlbums.find(a => a.albumid === id);
+    if (!album) return;
 
-  album.rating = '📀📀📀';
-  setProfileAlbums([...profileAlbums]);
-};
+    album.rating = '📀📀📀';
+    setProfileAlbums([...profileAlbums]);
+  };
   const star4 = async (id: number) => {
-  // save to backend
-  await fetch("http://localhost:8080/api/profile/albums/" + id + "/rating", {
-    method: "PUT",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ rating: '📀📀📀📀' }),
-  });
-  // update UI
-  const album = profileAlbums.find(a => a.albumid === id);
-  if (!album) return;
+    // save to backend
+    await fetch("http://localhost:8080/api/profile/albums/" + id + "/rating", {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ rating: '📀📀📀📀' }),
+    });
+    // update UI
+    const album = profileAlbums.find(a => a.albumid === id);
+    if (!album) return;
 
-  album.rating = '📀📀📀📀';
-  setProfileAlbums([...profileAlbums]);
-};
+    album.rating = '📀📀📀📀';
+    setProfileAlbums([...profileAlbums]);
+  };
   const star5 = async (id: number) => {
-  // save to backend
-  await fetch("http://localhost:8080/api/profile/albums/" + id + "/rating", {
-    method: "PUT",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ rating: '📀📀📀📀📀' }),
-  });
-  // update UI
-  const album = profileAlbums.find(a => a.albumid === id);
-  if (!album) return;
+    // save to backend
+    await fetch("http://localhost:8080/api/profile/albums/" + id + "/rating", {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ rating: '📀📀📀📀📀' }),
+    });
+    // update UI
+    const album = profileAlbums.find(a => a.albumid === id);
+    if (!album) return;
 
-  album.rating = '📀📀📀📀📀';
-  setProfileAlbums([...profileAlbums]);
-};
+    album.rating = '📀📀📀📀📀';
+    setProfileAlbums([...profileAlbums]);
+  };
 
 
   const removeRating = async (id: number) => {
-  // save to backend
-  await fetch("http://localhost:8080/api/profile/albums/" + id + "/rating", {
-    method: "PUT",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ rating: '', review:'' }),
-  });
-  // update UI
-  const album = profileAlbums.find(a => a.albumid === id);
-  if (!album) return;
+    // save to backend
+    await fetch("http://localhost:8080/api/profile/albums/" + id + "/rating", {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ rating: '', review: '' }),
+    });
+    // update UI
+    const album = profileAlbums.find(a => a.albumid === id);
+    if (!album) return;
 
-  album.rating = '';
-  album.review = '';
-  setProfileAlbums([...profileAlbums]);
-};
+    album.rating = '';
+    album.review = '';
+    setProfileAlbums([...profileAlbums]);
+  };
 
 
-//////////////////////////////////////////////////////////////////////////////////////////////////////////// review
-const myReview = async (id: number) => {
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////// review
+  const myReview = async (id: number) => {
 
-  // update UI
-  const album = profileAlbums.find(a => a.albumid === id);
-  if (!album) return;
+    // update UI
+    const album = profileAlbums.find(a => a.albumid === id);
+    if (!album) return;
 
-  if (note) {
+    if (note) {
       album.review = note;
     }
 
-      // save to backend
-  await fetch("http://localhost:8080/api/profile/albums/" + id + "/rating", {
-    method: "PUT",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ review: album.review }),
-  });
+    // save to backend
+    await fetch("http://localhost:8080/api/profile/albums/" + id + "/rating", {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ review: album.review }),
+    });
 
-  setProfileAlbums([...profileAlbums]);
-  setNote("");
-};
+    setProfileAlbums([...profileAlbums]);
+    setNote("");
+  };
 
   const [username, setUsername] = useState("");
 
@@ -206,7 +206,8 @@ const myReview = async (id: number) => {
     const storedUser = localStorage.getItem("user");
     if (storedUser) {
       const parsedUser = JSON.parse(storedUser);
-      setUsername(parsedUser.name);
+      const name = parsedUser.name.split("@")[0]; // Extract the part before '@'
+      setUsername(name);
     }
   }, []);
 
@@ -214,77 +215,76 @@ const myReview = async (id: number) => {
     <div className='bg-[#D496BB] min-h-screen'>
       <NavbarComponent />
       <div className='flex items-center justify-center mt-8 gap-4'>
-        <img 
+        <img
           src={userIcon}
           alt="Profile Icon"
           className='w-24 h-24'
         />
-        <h1 className='text-6xl font-bold text-white text-center'>Welcome {username || "Guest"} </h1>
-    </div>    
-    <p className='text-desc font-bold text-center text-white'> Your Saved Albums </p>
+        <h1 className='text-xl md:text-4xl lg:text-6xl font-bold text-white text-center'>Welcome {username || "Guest"} </h1>
+      </div>
+      <p className='text-desc font-bold text-center text-white'> Your Saved Albums </p>
       <div className='px-32'>
+        {/* grid columns change based on screen size to avoid overlap */}
         <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 py-8'>
           {profileAlbums.map(album => (
             <div key={album.albumid} className='w-full bg-white flex justify-center flex-col p-4'>
-                  <div className="text-right">
-                  <button> <img src={trashIcon} alt="my image" onClick={() => deleteAlbum(album.albumid)} className="w-4 hover:scale-105 transition duration-300 ease-in-out "/></button>
-                  </div>
+              <div className="text-right">
+                <button> <img src={trashIcon} alt="my image" onClick={() => deleteAlbum(album.albumid)} className="w-4 hover:scale-105 transition duration-300 ease-in-out " /></button>
+              </div>
               <img src={`http://localhost:8080${album.Image}`} alt={album.album} className="w-full h-full text-center object-cover" />
               <br></br>
-              <h3 className='font-bold text-2xl text-center'> {album.album} </h3>
+              <h3 className='font-bold text-xl lg:text-2xl text-center'> {album.album} </h3>
               <br></br>
-              <h3 className='font-bold text-1xl text-center'> {album.artist}  </h3>
+              <h3 className='font-bold text-md lg:text-xl text-center'> {album.artist}  </h3>
               <br></br>
               <h2 className='font-bold text-2xl text-center'> {album.rating} </h2>
-              <h2 className='font-bold text-1xl text-sm text-center text-yellow-500'> {album.review} </h2>
+              <h2 className='font-bold text-md lg:text-xl text-sm text-center text-yellow-500'> {album.review} </h2>
 
-        
-      <div>
-        {/* new div for rate album button for RANA */}
-        <div className="text-center">
-      <button onClick={() => setOpen(album.albumid)} className="w-50 p-4 font-bold mt-4 text-white border border-white bg-pink-400 hover:scale-105 transition duration-300 ease-in-out text-center">Rate Album</button>
-      </div>
-      <Modal open={open === album.albumid} onClose={() => setOpen(null)} center>
-        <div className="w-85 h-55 text-center ">
-          
-                  <h2> How many Golden CDs do you rate it?</h2>
-                  <br></br>
-                  <div className="text-4xl">
-                  <button onClick={() => star1(album.albumid)}> 📀 </button>
-                  <button onClick={() => star2(album.albumid)}> 📀 </button>
-                  <button onClick={() => star3(album.albumid)}> 📀 </button>
-                  <button onClick={() => star4(album.albumid)}> 📀 </button>
-                  <button onClick={() => star5(album.albumid)}> 📀 </button>
+
+              <div className="flex flex-wrap items-center justify-center">
+                {/* rate album that pops a modal when clicked */}
+                <div className="text-center">
+                  <button onClick={() => setOpen(album.albumid)} className="w-40 p-4 font-bold mt-4 text-white border border-white bg-pink-400 hover:scale-105 transition duration-300 ease-in-out text-center">Rate Album</button>
+                </div>
+                <Modal open={open === album.albumid} onClose={() => setOpen(null)} center>
+                  <div className="w-85 h-55 text-center ">
+
+                    <h2> How many Golden CDs do you rate it?</h2>
+                    <br></br>
+                    <div className="text-4xl">
+                      <button onClick={() => star1(album.albumid)}> 📀 </button>
+                      <button onClick={() => star2(album.albumid)}> 📀 </button>
+                      <button onClick={() => star3(album.albumid)}> 📀 </button>
+                      <button onClick={() => star4(album.albumid)}> 📀 </button>
+                      <button onClick={() => star5(album.albumid)}> 📀 </button>
+                    </div>
+                    <br></br>
+                    <h2> Would you like to also add a review?</h2>
+                    <br></br>
+                    <form onSubmit={(e) => { e.preventDefault(); myReview(album.albumid); }}>
+
+                      <input
+                        type="text"
+                        placeholder="My Review"
+                        value={note}
+                        onChange={(e) => setNote(e.target.value)}
+                        required
+                      />
+                      <button className="pl-4" type="submit"> Enter</button>
+                    </form>
                   </div>
-                  <br></br>
-                  <h2> Would you like to also add a review?</h2>
-                  <br></br>
-                    <form onSubmit={(e) => {e.preventDefault(); myReview(album.albumid);}}>
-          
-          <input 
-            type="text" 
-            placeholder="My Review" 
-            value={note}
-            onChange={(e) => setNote(e.target.value)}
-            required 
-          />
-          <button className="pl-4" type="submit"> Enter</button>
-        </form>
-         </div>
-      </Modal>
-      </div>
-
-    {/* new div for delete album button for RANA */}
-    <div className="text-center">
-    <button onClick={() => removeRating(album.albumid)} className="w-50 p-4 font-bold mt-4 text-white border border-white bg-gray-400 hover:scale-105 transition duration-300 ease-in-out text-center">Remove Rating</button>
-    </div>
+                </Modal>
+                <div className="text-center">
+                  <button onClick={() => removeRating(album.albumid)} className="w-40 p-4 font-bold mt-4 text-white border border-white bg-gray-400 hover:scale-105 transition duration-300 ease-in-out text-center">Remove Rating</button>
+                </div>
+              </div>
 
             </div>
           ))}
         </div>
 
-      
-  
+
+
       </div>
 
     </div>
