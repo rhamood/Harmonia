@@ -196,6 +196,8 @@ function ProfilePage() {
 
     setProfileAlbums([...profileAlbums]);
     setNote("");
+
+    setOpen(null); // close modal after submitting review
   };
 
   const [username, setUsername] = useState("");
@@ -268,6 +270,12 @@ function ProfilePage() {
                         placeholder="My Review"
                         value={note}
                         onChange={(e) => setNote(e.target.value)}
+                        onKeyDown={(e) => {
+                          if (e.key === 'Enter') {
+                            e.preventDefault();
+                            myReview(album.albumid);
+                          }
+                        }}
                         required
                       />
                       <button className="pl-4" type="submit"> Enter</button>

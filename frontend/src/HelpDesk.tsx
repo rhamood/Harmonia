@@ -55,6 +55,13 @@ function HelpDesk() {
             className="w-full p-4 rounded mb-6 text-black border" 
             value={question}
             onChange={(e) => setQuestion(e.target.value)}
+            // so user can submit review by pressing 'Enter' on keyboard as well as the Enter button on form 
+            onKeyDown={(e) => {
+              if (e.key === 'Enter') {
+                e.preventDefault();
+                sendQuestion();
+              }
+            }}
           />
           {/* button to send questions and trigger the sendQuestion function */}
           <button 
