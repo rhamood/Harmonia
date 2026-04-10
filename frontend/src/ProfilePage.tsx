@@ -246,6 +246,7 @@ const myReview = async (id: number) => {
 
         
       <div>
+        {/* new div for rate album button for RANA */}
         <div className="text-center">
       <button onClick={() => setOpen(album.albumid)} className="w-50 p-4 font-bold mt-4 text-white border border-white bg-pink-400 hover:scale-105 transition duration-300 ease-in-out text-center">Rate Album</button>
       </div>
@@ -279,6 +280,7 @@ const myReview = async (id: number) => {
       </Modal>
       </div>
 
+    {/* new div for delete album button for RANA */}
     <div className="text-center">
     <button onClick={() => removeRating(album.albumid)} className="w-50 p-4 font-bold mt-4 text-white border border-white bg-gray-400 hover:scale-105 transition duration-300 ease-in-out text-center">Remove Rating</button>
     </div>
