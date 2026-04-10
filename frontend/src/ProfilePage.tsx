@@ -8,8 +8,6 @@ import React from "react";
 import 'react-responsive-modal/styles.css';
 import trashIcon from "./assets/images/trash.png";
 
-
-
 type Album = {
   albumid: number;
   hasImage: boolean;
@@ -19,7 +17,6 @@ type Album = {
   rating: string;
   review: string;
 };
-
 
 function ProfilePage() {
   const [profileAlbums, setProfileAlbums] = useState<Album[]>([]); //empty array to store albums added to profile
@@ -201,16 +198,16 @@ const myReview = async (id: number) => {
   setNote("");
 };
 
-
-
-
-
-
-
+  const [username, setUsername] = useState("");
 
 
   useEffect(() => { //load albumns on page load
     loadProfileAlbums();
+    const storedUser = localStorage.getItem("user");
+    if (storedUser) {
+      const parsedUser = JSON.parse(storedUser);
+      setUsername(parsedUser.name);
+    }
   }, []);
 
   return (
@@ -222,7 +219,7 @@ const myReview = async (id: number) => {
           alt="Profile Icon"
           className='w-24 h-24'
         />
-        <h1 className='text-6xl font-bold text-white text-center'>Welcome Jane Doe</h1>
+        <h1 className='text-6xl font-bold text-white text-center'>Welcome {username || "Guest"} </h1>
     </div>    
     <p className='text-desc font-bold text-center text-white'> Your Saved Albums </p>
       <div className='px-32'>
@@ -246,6 +243,7 @@ const myReview = async (id: number) => {
 
         
       <div>
+        {/* new div for rate album button for RANA */}
         <div className="text-center">
       <button onClick={() => setOpen(album.albumid)} className="w-50 p-4 font-bold mt-4 text-white border border-white bg-pink-400 hover:scale-105 transition duration-300 ease-in-out text-center">Rate Album</button>
       </div>
@@ -279,6 +277,7 @@ const myReview = async (id: number) => {
       </Modal>
       </div>
 
+    {/* new div for delete album button for RANA */}
     <div className="text-center">
     <button onClick={() => removeRating(album.albumid)} className="w-50 p-4 font-bold mt-4 text-white border border-white bg-gray-400 hover:scale-105 transition duration-300 ease-in-out text-center">Remove Rating</button>
     </div>
